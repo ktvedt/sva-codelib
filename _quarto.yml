@@ -5,8 +5,8 @@ website:
   title: "sva-codelib"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
+      - href: dashboard/index.qmd
+        text: Dashboard
       - about.qmd
 
 format:

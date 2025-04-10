@@ -1,0 +1,18 @@
+---
+title: "SVA kodebibliotek"
+format: html
+page-layout: full
+---
+
+# SVA kodebibliotek
+
+Use the search box or filters below to explore shared code.
+
+<div id="search-container">
+  <input id="search-box" type="text" placeholder="Search..." />
+</div>
+
+<div id="filters"></div>
+<div id="projects"></div>
+
+<script src="filters.js"></script>
