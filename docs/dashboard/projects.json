@@ -1,0 +1,60 @@
+[
+  {
+    "title": "Testing microdata-script",
+    "authors": [
+      "ktvedt"
+    ],
+    "language": "microdata",
+    "keywords": [
+      "innvandrere"
+    ],
+    "themes": [
+      "sosialhjelp"
+    ],
+    "methods": [
+      "OLS"
+    ],
+    "description": "Microdata-script for \u00e5 kartlegge sosialhjelpsmottakere, langtidsmottakere og gjengangere",
+    "folder": "demo-project2",
+    "files": []
+  },
+  {
+    "title": "Demo 2",
+    "authors": [
+      "test"
+    ],
+    "language": "Python",
+    "keywords": [
+      "classification",
+      "charts"
+    ],
+    "themes": [
+      "education",
+      "ML"
+    ],
+    "methods": [
+      "Random Forest"
+    ],
+    "description": "Basic classifier using scikit-learn.",
+    "folder": "demo-project3",
+    "files": []
+  },
+  {
+    "title": "Demo-prosjekt",
+    "authors": [
+      "ktvedt"
+    ],
+    "language": "R",
+    "keywords": [
+      "regression"
+    ],
+    "themes": [
+      "example"
+    ],
+    "methods": [
+      "OLS"
+    ],
+    "folder": "demo-project1",
+    "files": []
+  }
+]
