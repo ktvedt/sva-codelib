@@ -4,13 +4,17 @@ format: html
 page-layout: full
 ---
 
-Use the search box or filters below to explore shared code.
+Søk her:
 
 <div id="search-container">
   <input id="search-box" type="text" placeholder="Search..." />
 </div>
 
+eller bruk filtrene for å velge metode, tema eller programmeringsspråk:
+
 <div id="filters"></div>
-<div id="projects"></div>
+<div id="projects-container">
+  <div id="projects" class="grid"></div>
+</div>
 
 <script src="filters.js"></script>

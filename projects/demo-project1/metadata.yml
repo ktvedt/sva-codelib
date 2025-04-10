@@ -2,5 +2,5 @@ title: "Demo-prosjekt"
 authors: ["ktvedt"]
 language: "R"
 keywords: ["regression"]
-theme: "example"
-model: "OLS"
+themes: ["example"]
+model: ["OLS"]

@@ -1,0 +1,6 @@
+title: "Testing microdata-script"
+authors: ["ktvedt"]
+language: "microdata"
+keywords: ["innvandrere"]
+themes: ("sosialhjelp")
+model: ["OLS"]
