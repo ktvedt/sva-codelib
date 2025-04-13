@@ -7,9 +7,15 @@ let activeFilters = {
   
   function matchesFilters(project) {
     const searchText = activeFilters.search.toLowerCase();
+
+    const title = (project.title || "").toLowerCase();
+    const description = (project.description || "").toLowerCase();
     const searchMatch =
-      project.title.toLowerCase().includes(searchText) ||
-      (project.description || "").toLowerCase().includes(searchText);
+        title.includes(searchText) ||
+        description.includes(searchText) ||
+        (project.keywords || []).some(k => k.toLowerCase().includes(searchText)) ||
+        (project.themes || []).some(t => t.toLowerCase().includes(searchText)) ||
+        (project.methods || []).some(m => m.toLowerCase().includes(searchText));
   
     const filterFields = ["keywords", "themes", "methods"];
     const allMatch = filterFields.every(field => {
@@ -31,7 +37,7 @@ let activeFilters = {
       card.innerHTML = `
         <h3>${project.title}</h3>
         <p><strong>Language:</strong> ${project.language}</p>
-        <p><strong>Model:</strong> ${project.model}</p>
+        <p><strong>Methods:</strong> ${project.methods}</p>
         <p>${project.description || ""}</p>
         <p><strong>Files:</strong> ${
             (project.files || []).map(f => `<a href="projects/${f}" target="_blank">${f.split('/').pop()}</a>`).join(", ")
@@ -75,6 +81,7 @@ let activeFilters = {
   
       document.getElementById("search-box").addEventListener("input", (e) => {
         activeFilters.search = e.target.value;
+        console.log("Search input triggered:", e.target.value); // debug
         renderProjects(data);
       });
     });

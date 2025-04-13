@@ -3,4 +3,4 @@ authors: ["ktvedt"]
 language: "R"
 keywords: ["regression"]
 themes: ["example"]
-model: ["OLS"]
+methods: ["OLS"]

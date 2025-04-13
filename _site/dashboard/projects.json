@@ -8,10 +8,13 @@
     "keywords": [
       "innvandrere"
     ],
-    "themes": "(\"sosialhjelp\")",
-    "model": [
+    "themes": [
+      "sosialhjelp"
+    ],
+    "methods": [
       "OLS"
     ],
+    "description": "Microdata-script for \u00e5 kartlegge sosialhjelpsmottakere, langtidsmottakere og gjengangere",
     "folder": "demo-project2",
     "files": []
   },
@@ -48,7 +51,7 @@
     "themes": [
       "example"
     ],
-    "model": [
+    "methods": [
       "OLS"
     ],
     "folder": "demo-project1",

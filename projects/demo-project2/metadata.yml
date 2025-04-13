@@ -2,5 +2,6 @@ title: "Testing microdata-script"
 authors: ["ktvedt"]
 language: "microdata"
 keywords: ["innvandrere"]
-themes: ("sosialhjelp")
-model: ["OLS"]
+themes: ["sosialhjelp"]
+methods: ["OLS"]
+description: "Microdata-script for å kartlegge sosialhjelpsmottakere, langtidsmottakere og gjengangere"
