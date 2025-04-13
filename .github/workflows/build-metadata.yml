@@ -29,6 +29,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add dashboard/projects.json
-          git commit -m "Update projects.json" || echo "No changes to commit"
+          git add dashboard/projects.json || true
+          git diff --cached --quiet || git commit -m "Update projects.json"
           git push
