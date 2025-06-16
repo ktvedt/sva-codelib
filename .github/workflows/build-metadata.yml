@@ -2,8 +2,8 @@ name: Build metadata index
 
 on:
   push:
-  branches:
-      - main
+    branches:
+        - main
 
 jobs:
   build-metadata:
