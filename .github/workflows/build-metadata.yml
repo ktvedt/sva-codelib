@@ -2,12 +2,8 @@ name: Build metadata index
 
 on:
   push:
-    paths:
-      - "projects/**"
-      - "generate_projects_json.py"
-      - "dashboard/**"
-      - "styles.css"
-      - "_quarto.yml"
+  branches:
+      - main
 
 jobs:
   build-metadata:
