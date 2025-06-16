@@ -5,5 +5,12 @@
     "title": "SVA kodebibliotek",
     "section": "",
     "text": "Søk her:\n\n\n\neller bruk filtrene for å velge metode, tema eller programmeringsspråk:"
+  },
+  {
+    "objectID": "readme.html",
+    "href": "readme.html",
+    "title": "SVA kodebibliotek",
+    "section": "",
+    "text": "SVA kodebibliotek\nThis repository hosts the code library.\n\n\nAdd content\n\nAdd a new folder in /projects/\nInclude code files and a metadata.yml file following the provided template\n\n\n\nUpdate the site\n\nUpdate the project library by running python generate_projects_json.py\nPush changes\n\nAfter pushing, GitHub Pages automatically rebuilds the site and publishes dashboard updates. The GitHub Action currently only validates metadata.yml files, it does not remove the need for local running of generate_projects_json.py"
   }
 ]

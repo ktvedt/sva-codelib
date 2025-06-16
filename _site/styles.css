@@ -4,6 +4,7 @@ font-family: Arial, sans-serif;
 
 .filter-btn {
   margin: 4px;
+  font-size: 14px;
   padding: 4px 8px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -44,4 +45,34 @@ font-family: Arial, sans-serif;
   background: white;
   padding: 10px 0;
   z-index: 10;
+}
+
+#controls-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+#search-container {
+  flex: 1;
+}
+
+#filters {
+  flex: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 10px;
+}
+
+.filter-group {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px;
+  background: #fafafa;
+}
+
+.filter-group h4 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
 }
