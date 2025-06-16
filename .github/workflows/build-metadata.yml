@@ -26,11 +26,14 @@ jobs:
       - name: Generate projects.json
         run: python generate_projects_json.py
 
-      # - name: Commit and push projects.json
-      #   run: |
-      #     git config user.name "github-actions"
-      #     git config user.email "actions@github.com"
-      #     git add dashboard/projects.json || true
-      #     git diff --cached --quiet || git commit -m "Update projects.json"
-      #     git pull origin main --rebase
-      #     git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ktvedt/sva-codelib.git
+      - name: Install Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render Quarto site
+        run: quarto render
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _site
