@@ -60,7 +60,7 @@
       "arbeidss\u00f8kere",
       "overf\u00f8ringer"
     ],
-    "description": "Tilrettelegging av mikrodata fra SSBs variabelomr\u00e5de FD-Trygd, inkl. sysselsetting, arbeidss\u00f8kere, ytelser og andre overf\u00f8ringer: AAP, sosialhjelp, sykepenger, uf\u00f8retrygd, uf\u00f8repensjon, kvalifiseringsprogrammet (KVP). Les mer om FD-Trygd her: https://www.ssb.no/arbeid-og-lonn/artikler-og-publikasjoner/tilrettelegging-av-mikrodata-fra-ssbs-variabelomrade-fd-trygd: https://www.ssb.no/data-til-forskning/utlan-av-data-til-forskere/variabellister/fd-trygd",
+    "description": "Tilrettelegging av mikrodata fra SSBs variabelomr\u00e5de FD-Trygd, inkl. sysselsetting, arbeidss\u00f8kere, ytelser og andre overf\u00f8ringer: AAP, sosialhjelp, sykepenger, uf\u00f8retrygd, uf\u00f8repensjon, kvalifiseringsprogrammet (KVP).",
     "folder": "FD-trygd",
     "files": [
       "FD-trygd/Sykepenger.do",

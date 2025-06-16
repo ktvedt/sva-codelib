@@ -36,14 +36,14 @@ let activeFilters = {
       card.className = "project-card";
       card.innerHTML = `
         <h3>${project.title}</h3>
+        <p><strong>Authors:</strong> ${(project.authors || []).join(", ")}</p>
         <p><strong>Language:</strong> ${project.language}</p>
-        <p><strong>Methods:</strong> ${project.methods}</p>
+        <p><strong>Data:</strong> ${(project.data || []).join(", ")}</p>
+        <p><strong>Methods:</strong> ${(project.methods || []).join(", ")}</p>
+        <p><strong>Themes:</strong> ${(project.themes || []).join(", ")}</p>
         <p>${project.description || ""}</p>
-        <p><strong>Files:</strong> ${
-            (project.files || []).map(f => `<a href="projects/${f}" target="_blank">${f.split('/').pop()}</a>`).join(", ")
-        }</p>
         <p><a href="https://github.com/ktvedt/sva-codelib/tree/main/projects/${project.folder}" target="_blank">View full project on GitHub</a></p>
-        `;
+`;
       container.appendChild(card);
     });
   }
