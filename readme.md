@@ -1,4 +1,4 @@
-# SVA Code Library
+# SVA kodebibliotek
 
 This repository hosts the code library.
 
