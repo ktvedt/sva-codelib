@@ -3,5 +3,5 @@ authors: ["test"]
 language: "Python"
 data: ["test"]
 methods: ["Random Forest"]
-themes: ["education", "ML"]
-description: "Hvilket prosjekt det er brukt til, publikasjoner, datasett. link til publikasjoner?."
+themes: ["education"]
+description: "default"
