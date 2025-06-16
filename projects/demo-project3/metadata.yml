@@ -1,7 +1,0 @@
-title: "Demo 2"
-authors: ["test"]
-language: "Python"
-keywords: ["classification"]
-themes: ["education", "ML"]
-methods: ["Random Forest"]
-description: "Basic classifier using scikit-learn."

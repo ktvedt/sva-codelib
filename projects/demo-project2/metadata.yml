@@ -1,7 +1,7 @@
-title: "Testing microdata-script"
-authors: ["ktvedt"]
-language: "microdata"
-keywords: ["innvandrere"]
-themes: ["sosialhjelp"]
-methods: ["OLS"]
-description: "Microdata-script for å kartlegge sosialhjelpsmottakere, langtidsmottakere og gjengangere"
+title: "Demo 2"
+authors: ["test"]
+language: "Python"
+data: ["test"]
+methods: ["Random Forest"]
+themes: ["education", "ML"]
+description: "Hvilket prosjekt det er brukt til, publikasjoner, datasett. link til publikasjoner?."
