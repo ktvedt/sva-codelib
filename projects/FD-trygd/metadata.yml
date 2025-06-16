@@ -1,7 +1,7 @@
 title: "FD-Trygd: Vasking av mikrodata"
 authors: ["Åsmund Hermansen"]
 language: "Stata"
-data: ["FD-Trygd", "registerdata"]
+data: ["FD-trygd", "registerdata"]
 methods: ["Forløpsanalyse"]
 themes: ["sysselsetting", "arbeidssøkere", "overføringer"]
 description: "Tilrettelegging av mikrodata fra SSBs variabelområde FD-Trygd, inkl. sysselsetting, arbeidssøkere, ytelser og andre overføringer: AAP, sosialhjelp, sykepenger, uføretrygd, uførepensjon, kvalifiseringsprogrammet (KVP). Les mer om FD-Trygd her: https://www.ssb.no/arbeid-og-lonn/artikler-og-publikasjoner/tilrettelegging-av-mikrodata-fra-ssbs-variabelomrade-fd-trygd: https://www.ssb.no/data-til-forskning/utlan-av-data-til-forskere/variabellister/fd-trygd"
