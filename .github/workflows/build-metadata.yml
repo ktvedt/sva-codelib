@@ -31,4 +31,5 @@ jobs:
           git config user.email "actions@github.com"
           git add dashboard/projects.json || true
           git diff --cached --quiet || git commit -m "Update projects.json"
+          git pull --rebase
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ktvedt/sva-codelib.git
