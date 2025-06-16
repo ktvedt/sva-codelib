@@ -12,10 +12,9 @@
       "Random Forest"
     ],
     "themes": [
-      "education",
-      "ML"
+      "education"
     ],
-    "description": "Hvilket prosjekt det er brukt til, publikasjoner, datasett. link til publikasjoner?.",
+    "description": "default",
     "folder": "demo-project2",
     "files": []
   },
