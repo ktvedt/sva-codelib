@@ -3,7 +3,7 @@ project:
   output-dir: _site
 
 website:
-  title: "SVA kodebibliotek"
+  title: ""
   # site-url: "https://ktvedt.github.io/sva-codelib/"
   navbar:
     left:
