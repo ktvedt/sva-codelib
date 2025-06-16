@@ -1,13 +1,14 @@
 project:
   type: website
+  output-dir: _site
 
 website:
-  title: "sva-codelib"
+  title: "SVA kodebibliotek"
+  # site-url: "https://ktvedt.github.io/sva-codelib/"
   navbar:
     left:
       - href: dashboard/index.qmd
         text: Dashboard
-      - about.qmd
 
 format:
   html:

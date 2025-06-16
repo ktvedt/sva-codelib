@@ -4,6 +4,11 @@ on:
   push:
     paths:
       - "projects/**"
+      - "generate_projects_json.py"
+      - "dashboard/**"
+      - "styles.css"
+      - "index.qmd"
+      - "_quarto.yml"
 
 jobs:
   build-metadata:
