@@ -38,18 +38,26 @@ function matchesFilters(project) {
 function renderProjects(data) {
   const container = document.getElementById("projects");
   container.innerHTML = "";
-  data.filter(matchesFilters).forEach(project => {
+  const filtered = data.filter(matchesFilters);
+
+  // Update the counter
+  const counter = document.getElementById("project-counter");
+  if (counter) {
+    counter.textContent = `${filtered.length} prosjekt${filtered.length === 1 ? '' : 'er'}`;
+  }
+
+  filtered.forEach(project => {
     const card = document.createElement("div");
     card.className = "project-card";
     card.innerHTML = `
       <h3>${project.title}</h3>
       <p><strong>Forfatter:</strong> ${(project.authors || []).join(", ")}</p>
-      <p><strong>Språk:</strong> ${project.language}</p>
+      <p><strong>Programmeringsspråk:</strong> ${project.language}</p>
       <p><strong>Data:</strong> ${(project.data || []).join(", ")}</p>
       <p><strong>Metode:</strong> ${(project.methods || []).join(", ")}</p>
       <p><strong>Tema:</strong> ${(project.themes || []).join(", ")}</p>
       <p>${project.description || ""}</p>
-      <p><a href="https://github.com/ktvedt/sva-codelib/tree/main/projects/${project.folder}" target="_blank">Se prosjektet på GitHub</a></p>
+      <p><a href="https://github.com/ktvedt/sva-codelib/tree/main/projects/${project.folder}" target="_blank">Finn filer</a></p>
     `;
     container.appendChild(card);
   });
