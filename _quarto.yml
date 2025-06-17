@@ -8,11 +8,11 @@ website:
   navbar:
     left:
       - href: dashboard/index.qmd
-        text: Dashboard
+        text: Kodebibliotek
 
 format:
   html:
-    theme: cosmo
+    theme: [cosmo, themes/custom.scss]
       # light: [cosmo, themes/custom.scss]
       # dark: [cosmo, themes/custom-dark.scss]
     css: styles.css
