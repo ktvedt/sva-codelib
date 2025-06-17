@@ -13,6 +13,8 @@ website:
 format:
   html:
     theme: cosmo
+      # light: [cosmo, themes/custom.scss]
+      # dark: [cosmo, themes/custom-dark.scss]
     css: styles.css
     toc: true
 
