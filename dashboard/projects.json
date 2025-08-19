@@ -1,66 +1,76 @@
 [
   {
-    "title": "Demo 2",
-    "authors": [
-      "test"
-    ],
-    "language": "Python",
-    "data": [
-      "test"
-    ],
-    "methods": [
-      "Random Forest"
-    ],
-    "themes": [
-      "education"
-    ],
-    "description": "default",
-    "folder": "demo-project2",
-    "files": []
-  },
-  {
     "title": "Microdata-script",
     "authors": [
       "Kristian Tvedt"
     ],
     "language": "microdata.no",
     "data": [
-      "registerdata",
-      "microdata.no"
+      "registerdata"
     ],
     "themes": [
       "sosialhjelp",
-      "innvandrere",
+      "innvandring",
       "sosialhjelpsmottakere"
     ],
     "methods": [
-      "Deskriptiv statistikk",
-      "Logit"
+      "deskriptiv statistikk",
+      "logit"
     ],
     "description": "Definerer sosialhjelpsmottakere, langtidsmottakere og gjengangere i Microdata.no. Inkluderer deskriptiv statistikk p\u00e5 kommuneniv\u00e5 og logistisk regresjon.",
     "folder": "microdata-sosialhjelp",
-    "files": []
+    "files": [
+      "microdata-sosialhjelp/microdata logit sosialhjelpsmottakere.txt"
+    ]
   },
   {
-    "title": "Demo-prosjekt",
+    "title": "Migrasjonsstr\u00f8mmer via Eurostats API",
     "authors": [
-      "ktvedt"
+      "Kristian Tvedt"
     ],
     "language": "R",
     "data": [
-      "test"
-    ],
-    "keywords": [
-      "regression"
+      "administrative data"
     ],
     "themes": [
-      "example"
+      "innvandring",
+      "migrasjonsstr\u00f8mmer"
     ],
     "methods": [
-      "OLS"
+      "API",
+      "data wrangling"
     ],
-    "folder": "demo-project1",
-    "files": []
+    "description": "Henter og vasker ulike data om asylankomster via Eurostats API. Data er brukt i GOVREIN-prosjektet. Les mer her: https://oda.oslomet.no/oda-xmlui/handle/11250/3112660",
+    "folder": "migration-eurostat-api",
+    "files": [
+      "migration-eurostat-api/2_load_data_temporaryprotection_Ukraine.R",
+      "migration-eurostat-api/4_protection status_annual.R",
+      "migration-eurostat-api/1_load_flowdata_annual.R"
+    ]
+  },
+  {
+    "title": "Spatial regression",
+    "authors": [
+      "Kristian Tvedt"
+    ],
+    "language": "R",
+    "data": [
+      "spatial data"
+    ],
+    "themes": [
+      "spatial regression",
+      "spatial autocorrelation"
+    ],
+    "methods": [
+      "spatial error model",
+      "spatial lag model"
+    ],
+    "description": "Identifiserer romlig autokorrelasjon i r\u00e5data og regresjonsresidualer. Spesifiserer og tester alternative modeller: SEM og SAR.",
+    "folder": "spatial-regression",
+    "files": [
+      "spatial-regression/spatial_regression.R",
+      "spatial-regression/Data"
+    ]
   },
   {
     "title": "FD-Trygd: Vasking av mikrodata",
@@ -83,16 +93,16 @@
     "description": "Tilrettelegging av mikrodata fra SSBs variabelomr\u00e5de FD-Trygd, inkl. sysselsetting, arbeidss\u00f8kere, ytelser og andre overf\u00f8ringer: AAP, sosialhjelp, sykepenger, uf\u00f8retrygd, uf\u00f8repensjon, kvalifiseringsprogrammet (KVP).",
     "folder": "FD-trygd",
     "files": [
-      "FD-trygd/Sykepenger.do",
-      "FD-trygd/Uf\u00f8repensjon.do",
-      "FD-trygd/Sosialhjelp.do",
-      "FD-trygd/Arbeidss\u00f8ker.do",
       "FD-trygd/Medisinsk+rehabilitering.do",
-      "FD-trygd/AAP.do",
-      "FD-trygd/KVP.do",
       "FD-trygd/Sysselsatt.do",
+      "FD-trygd/Sosialhjelp.do",
       "FD-trygd/Attf\u00f8ring.do",
-      "FD-trygd/Tidsbegrenset+uf\u00f8retrygd.do"
+      "FD-trygd/Sykepenger.do",
+      "FD-trygd/Tidsbegrenset+uf\u00f8retrygd.do",
+      "FD-trygd/KVP.do",
+      "FD-trygd/Arbeidss\u00f8ker.do",
+      "FD-trygd/AAP.do",
+      "FD-trygd/Uf\u00f8repensjon.do"
     ]
   }
 ]
