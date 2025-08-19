@@ -1,23 +1,53 @@
 [
   {
-    "title": "Demo 2",
+    "title": "Spatial regression",
     "authors": [
-      "test"
+      "Kristian Tvedt"
     ],
-    "language": "Python",
+    "language": "R",
     "data": [
-      "test"
-    ],
-    "methods": [
-      "Random Forest"
+      "spatial data"
     ],
     "themes": [
-      "education",
-      "ML"
+      "spatial regression",
+      "spatial autocorrelation"
     ],
-    "description": "Hvilket prosjekt det er brukt til, publikasjoner, datasett. link til publikasjoner?.",
-    "folder": "demo-project2",
-    "files": []
+    "methods": [
+      "spatial error model",
+      "spatial lag model"
+    ],
+    "description": "Identifiserer romlig autokorrelasjon i r\u00e5data og regresjonsresidualer. Spesifiserer og tester alternative modeller: SEM og SAR.",
+    "folder": "spatial-regression",
+    "files": [
+      "spatial-regression/.DS_Store",
+      "spatial-regression/spatial_regression.R",
+      "spatial-regression/Data"
+    ]
+  },
+  {
+    "title": "Migrasjonsstr\u00f8mmer via Eurostats API",
+    "authors": [
+      "Kristian Tvedt"
+    ],
+    "language": "R",
+    "data": [
+      "administrative data"
+    ],
+    "themes": [
+      "innvandring",
+      "migrasjonsstr\u00f8mmer"
+    ],
+    "methods": [
+      "API",
+      "data wrangling"
+    ],
+    "description": "Henter og vasker ulike data om asylankomster via Eurostats API. Data er brukt i GOVREIN-prosjektet. Les mer her: https://oda.oslomet.no/oda-xmlui/handle/11250/3112660",
+    "folder": "migration-eurostat-api",
+    "files": [
+      "migration-eurostat-api/4_protection status_annual.R",
+      "migration-eurostat-api/1_load_flowdata_annual.R",
+      "migration-eurostat-api/2_load_data_temporaryprotection_Ukraine.R"
+    ]
   },
   {
     "title": "Microdata-script",
@@ -26,21 +56,23 @@
     ],
     "language": "microdata.no",
     "data": [
-      "registerdata",
-      "microdata.no"
+      "registerdata"
     ],
     "themes": [
       "sosialhjelp",
-      "innvandrere",
+      "innvandring",
       "sosialhjelpsmottakere"
     ],
     "methods": [
-      "Deskriptiv statistikk",
-      "Logit"
+      "deskriptiv statistikk",
+      "logit"
     ],
     "description": "Definerer sosialhjelpsmottakere, langtidsmottakere og gjengangere i Microdata.no. Inkluderer deskriptiv statistikk p\u00e5 kommuneniv\u00e5 og logistisk regresjon.",
     "folder": "microdata-sosialhjelp",
-    "files": []
+    "files": [
+      "microdata-sosialhjelp/.DS_Store",
+      "microdata-sosialhjelp/microdata logit sosialhjelpsmottakere.txt"
+    ]
   },
   {
     "title": "FD-Trygd: Vasking av mikrodata",
@@ -74,26 +106,5 @@
       "FD-trygd/Uf\u00f8repensjon.do",
       "FD-trygd/KVP.do"
     ]
-  },
-  {
-    "title": "Demo-prosjekt",
-    "authors": [
-      "ktvedt"
-    ],
-    "language": "R",
-    "data": [
-      "test"
-    ],
-    "keywords": [
-      "regression"
-    ],
-    "themes": [
-      "example"
-    ],
-    "methods": [
-      "OLS"
-    ],
-    "folder": "demo-project1",
-    "files": []
   }
 ]

@@ -1,7 +1,7 @@
 title: "Microdata-script"
 authors: ["Kristian Tvedt"]
 language: "microdata.no"
-data: ["registerdata", "microdata.no"]
-themes: ["sosialhjelp", "innvandrere", "sosialhjelpsmottakere"]
-methods: ["Deskriptiv statistikk", "Logit"]
+data: ["registerdata"]
+themes: ["sosialhjelp", "innvandring", "sosialhjelpsmottakere"]
+methods: ["deskriptiv statistikk", "logit"]
 description: "Definerer sosialhjelpsmottakere, langtidsmottakere og gjengangere i Microdata.no. Inkluderer deskriptiv statistikk på kommunenivå og logistisk regresjon."

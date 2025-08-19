@@ -20,6 +20,8 @@ font-family: 'Arial', sans-serif;
 }
 
 .project-card {
+  margin-top: 0;
+  margin-bottom: 0;
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 10px;
@@ -70,12 +72,11 @@ font-family: 'Arial', sans-serif;
 }
 
 #project-counter {
-  position: sticky;
   top: 0;
   margin-bottom: 1em;
   font-weight: bold;
   background: #fafafa;
-  border: 2px solid #3578e5;
+  border: 2px solid #ddd;
   color: #1a2a4f;
   border-radius: 8px;
   padding: 0.75em 1.5em;

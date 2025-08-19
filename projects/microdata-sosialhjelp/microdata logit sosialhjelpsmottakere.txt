@@ -1,0 +1,510 @@
+require no.ssb.fdb:36 as ds
+
+create-dataset data
+import ds/BEFOLKNING_MRK_FNR as ident
+drop if ident == '3'
+
+import ds/BEFOLKNING_STATUSKODE 2024-01-01 as regstat
+drop if regstat == '5'  // fjerner døde, men beholder utvandrede. fjerner dette personer med d-nummer?
+tabulate regstat ident, missing
+
+// import alder
+import ds/BEFOLKNING_FOEDSELS_AAR_MND as faarmnd
+generate alder = 2023 - int(faarmnd/100) // baseline-år 2023 hvis populasjon per 1.1.2024
+summarize alder
+// filtrere til normal arbeidsalder (ILO-definisjon)
+// keep if alder > 24 & alder < 55 // 25-54 år
+keep if alder >= 18
+
+// populasjon per kommune
+import ds/BEFOLKNING_KOMMNR_FORMELL 2024-01-01 as kommune
+
+// Innvandrere: Fødeland, landbakgrunn, innvandringsgrunn, botid
+// import fødeland
+import ds/BEFOLKNING_FODELAND as fødeland
+
+// Landbakgrunn: Foreldres fødeland for personer født i Norge.
+import ds/BEFOLKNING_LANDBAK3GEN as landbakgrunn
+
+// import innvandringsgrunn: flukt, arbeid, familie eller utdanning?
+import ds/BEFOLKNING_INNGRUNN1 as innvandringsgrunn
+
+// SSBs innvandringskategorier 
+import ds/BEFOLKNING_INVKAT as innvandringskategori // innvandrere, etterkommere etc
+generate innvkat = 0 if inlist(innvandringskategori, 'A', 'E', 'F', 'G')  // majoritetsbefolkning
+replace innvkat = 1 if innvandringskategori == 'B'
+replace innvkat = 2 if inlist(innvandringskategori, 'C')  // C = norskfødte med innvandrerforeldre
+define-labels innv 0 'Majoritetsbefolkning' 1 'Innvandrere' 2 'Etterkommere'
+assign-labels innvkat innv
+
+// import botid (omfatter 1.5M personer)
+import ds/BEFOLKNING_FORSTDATO as oppholdsdato 
+summarize oppholdsdato
+generate ankomstår = substr(oppholdsdato, 1,4) // henter ut år med substring, start 1 og slutt 4
+destring ankomstår
+drop if ankomstår > 3000 // 32 personer har ankomstår 8888
+generate botid = 2023 - ankomstår  // ankomne i 2023 vil få 0 år (= 0-1 år)
+tabulate botid
+
+// lager botid-kategorier
+generate botid_kat = '0: Personer uten botid'
+replace botid_kat = '1: Maks 5 år' if botid <= 5 // maks 5 år
+replace botid_kat = '2: 6-10 år' if botid > 5 & botid <= 10 // 6-10 år
+replace botid_kat = '3: Over 10 år' if botid > 10 // minst 10 år
+tabulate botid_kat, missing
+
+// aggregerer landbakgrunn til verdensregion
+clone-variables landbakgrunn -> verdensregion // backup for kontroll etter omkoding
+destring verdensregion // destring til numerisk variabel (kreves ved recode)
+drop if verdensregion == 990 // Uoppgitt land, for få personer
+recode verdensregion (101/106 = 1) (111/142 144/199 500 = 2) (203/399 = 3) (143 404/496 502/599 802/899 = 4) (612 684 = 5) (601/799 = 6) (980 = 8) (990 = 9)
+define-labels vregion 0 'Norge' 1 'Norden' 2 'Resten av Europa' 3 'Afrika' 4 'Midtøsten, Asia, Oseania' 5 'USA+Canada' 6 'Latin-Amerika' 8 'Statsløse' 9 'Uoppgitt'
+assign-labels verdensregion vregion
+tabulate landbakgrunn verdensregion // sjekk ny og gammel koding
+
+// utvalgte landbakgrunner
+generate landbakgrunn_utvalg = landbakgrunn 
+destring landbakgrunn_utvalg
+recode landbakgrunn_utvalg (0 = 0 'Norge') (148 = 1 'Ukraina') (241 = 2 'Eritrea') (564 = 3 'Syria') (404 = 4 'Afghanistan') (346 = 5 'Somalia') (452 = 6 'Irak') (106 = 7 'Sverige') (1/990 = 9 'Andre land')
+tabulate landbakgrunn_utvalg, missing
+
+
+
+// ------------------ Sosialhjelpsmottakere ------------------
+// 2023: sosialhjelpsmottakere
+create-dataset sosialhjelp_2023
+import-event ds/SOSHJLPZFDT_MNDUTBET 2023-01-01 to 2023-12-31 as sosial_2023 
+generate mottaker_2023 = 1 if sosial_2023 > 0
+generate langtidsmottaker_2023 = 1 if sosial_2023 >= 6
+tabulate langtidsmottaker_2023 mottaker_2023, missing
+// 61 027 personer er langtidsmottakere. Dette er nær fasit: 60 084.
+
+// collapse til personer
+collapse (sum) sosial_2023 (sum) langtidsmottaker_2023 (sum) mottaker_2023, by(PERSONID_1)
+// merge med hoveddata
+merge sosial_2023 langtidsmottaker_2023 mottaker_2023 into data
+tabulate langtidsmottaker_2023 mottaker_2023, missing
+
+
+// 2022: sosialhjelpsmottakere
+create-dataset sosialhjelp_2022
+import-event ds/SOSHJLPZFDT_MNDUTBET 2022-01-01 to 2022-12-31 as sosial_2022
+generate mottaker_2022 = 1 if sosial_2022 > 0
+generate langtidsmottaker_2022 = 1 if sosial_2022 >= 6
+tabulate langtidsmottaker_2022 mottaker_2022, missing
+// collapse til personer
+collapse (sum) sosial_2022 (sum) langtidsmottaker_2022 (sum) mottaker_2022, by(PERSONID_1)
+// merge med hoveddata
+merge sosial_2022 langtidsmottaker_2022 mottaker_2022 into data
+tabulate langtidsmottaker_2022 mottaker_2022, missing
+
+
+// 2021: sosialhjelpsmottakere
+create-dataset sosialhjelp_2021
+import-event ds/SOSHJLPZFDT_MNDUTBET 2021-01-01 to 2021-12-31 as sosial_2021
+generate mottaker_2021 = 1 if sosial_2021 > 0
+generate langtidsmottaker_2021 = 1 if sosial_2021 >= 6
+tabulate langtidsmottaker_2021 mottaker_2021, missing
+// collapse til personer
+collapse (sum) sosial_2021 (sum) langtidsmottaker_2021 (sum) mottaker_2021, by(PERSONID_1)
+// merge med hoveddata
+merge sosial_2021 langtidsmottaker_2021 mottaker_2021 into data
+tabulate langtidsmottaker_2021 mottaker_2021, missing
+
+
+// 2020: sosialhjelpsmottakere
+create-dataset sosialhjelp_2020
+import-event ds/SOSHJLPZFDT_MNDUTBET 2020-01-01 to 2020-12-31 as sosial_2020
+generate mottaker_2020 = 1 if sosial_2020 > 0
+generate langtidsmottaker_2020 = 1 if sosial_2020 >= 6
+tabulate langtidsmottaker_2020 mottaker_2020, missing
+// collapse til personer
+collapse (sum) sosial_2020 (sum) langtidsmottaker_2020 (sum) mottaker_2020, by(PERSONID_1)
+// merge med hoveddata
+merge sosial_2020 langtidsmottaker_2020 mottaker_2020 into data
+tabulate langtidsmottaker_2020 mottaker_2020, missing
+
+
+// 2019: sosialhjelpsmottakere
+create-dataset sosialhjelp_2019
+import-event ds/SOSHJLPZFDT_MNDUTBET 2019-01-01 to 2019-12-31 as sosial_2019
+generate mottaker_2019 = 1 if sosial_2019 > 0
+generate langtidsmottaker_2019 = 1 if sosial_2019 >= 6
+tabulate langtidsmottaker_2019 mottaker_2019, missing
+// collapse til personer
+collapse (sum) sosial_2019 (sum) langtidsmottaker_2019 (sum) mottaker_2019, by(PERSONID_1)
+tabulate sosial_2019
+// merge med hoveddata
+merge sosial_2019 langtidsmottaker_2019 mottaker_2019 into data
+tabulate langtidsmottaker_2019 mottaker_2019, missing
+
+// prep output-variabler
+use data
+tabulate landbakgrunn_utvalg mottaker_2023, missing
+
+
+// mottakere etter mottakslengde
+generate mottak_2023 = '0: Ikke mottatt'
+replace mottak_2023 = '1: Korttidsmottaker' if mottaker_2023
+replace mottak_2023 = '2: Langtidsmottaker' if langtidsmottaker_2023
+// output:
+tabulate kommune mottak_2023, flatten
+
+// -------------- Mottaksgrupper ----------
+// INNVANDRERE
+generate mottaksgruppe_innv = langtidsmottaker_2023
+tabulate mottaksgruppe_innv
+replace mottaksgruppe_innv = 2 if langtidsmottaker_2023 & innvkat == 1
+replace mottaksgruppe_innv = 3 if langtidsmottaker_2023 == 0 & innvkat == 1
+define-labels mottaker_innv 0 'Korttid rest' 1 'Langtid rest' 2 'Langtid innvandrere' 3 'Korttid innvandrere' 
+assign-labels mottaksgruppe_innv mottaker_innv
+tabulate mottaksgruppe_innv
+// OUTPUT: mottaksrater justert for innvandrere
+tabulate kommune mottaksgruppe_innv, flatten
+tabulate kommune innvkat, missing flatten // kontroll: fordeling i kommunen
+
+// FLUKT
+generate mottaksgruppe_flu = langtidsmottaker_2023
+tabulate mottaksgruppe_flu
+replace mottaksgruppe_flu = 2 if langtidsmottaker_2023 & innvandringsgrunn == 'FLU'
+replace mottaksgruppe_flu = 3 if langtidsmottaker_2023 == 0 & innvandringsgrunn == 'FLU'
+define-labels mottaker_flu 0 'Korttid rest' 1 'Langtid rest' 2 'Langtid flukt' 3 'Korttid flukt' 
+assign-labels mottaksgruppe_flu mottaker_flu
+tabulate mottaksgruppe_flu
+// OUTPUT: mottaksrater justert for flukt
+tabulate kommune mottaksgruppe_flu, flatten
+tabulate kommune innvandringsgrunn, missing flatten
+
+
+// Innvandrere, LANDUTVALG
+generate mottaksgruppe_land = langtidsmottaker_2023 if innvkat == 1
+tabulate mottaksgruppe_land
+tabulate landbakgrunn_utvalg
+replace mottaksgruppe_land = 2 if langtidsmottaker_2023 & innvkat == 1 & inrange(landbakgrunn_utvalg, 1, 6)
+replace mottaksgruppe_land = 3 if langtidsmottaker_2023 & innvkat == 1 & inlist(landbakgrunn_utvalg, 0, 9)
+tabulate mottaksgruppe_land
+tabulate mottaksgruppe_land landbakgrunn_utvalg
+
+define-labels mottaker_landutvalg 0 'Korttid innv' 1 'Langtid innv' 2 'Langtid innv landutvalg' 3 'Langtid innv andre land' 
+assign-labels mottaksgruppe_land mottaker_landutvalg
+tabulate mottaksgruppe_land
+
+// OUTPUT: innvandreres mottaksrater justert for utvalgte land
+tabulate kommune mottaksgruppe_land, flatten
+tabulate kommune landbakgrunn_utvalg if innvkat == 1, flatten
+
+
+
+// mottakere etter innvandringskategori
+generate mottaker_invkat = 0
+replace mottaker_invkat = 1 if mottaker_2023 & innvkat == 0  // A: Maj
+replace mottaker_invkat = 2 if mottaker_2023 & innvkat == 1  // B: Innvandrere
+replace mottaker_invkat = 3 if mottaker_2023 & innvkat == 2  // C: norskfødte med innvandrerforeldre
+
+tabulate kommune innvkat
+
+// mottakere etter innvandringsgrunn
+generate mottaker_innvandringsgrunn = 0 
+replace mottaker_innvandringsgrunn = 1 if mottaker_2023 & innvandringsgrunn == 'FLU'  // flyktninger
+replace mottaker_innvandringsgrunn = 2 if mottaker_2023 & innvandringsgrunn == 'ARB'  // arbeidsinnvandrere
+replace mottaker_innvandringsgrunn = 3 if mottaker_2023 & innvandringsgrunn == 'FAM'  // familiegjenforente
+
+tabulate kommune mottaker_invkat
+tabulate kommune mottaker_innvandringsgrunn
+
+// OUTPUT: antall mottakere
+tabulate kommune mottaker_2023, flatten
+tabulate kommune mottaker_2022, flatten
+tabulate kommune mottaker_2021, flatten
+tabulate kommune mottaker_2020, flatten
+tabulate kommune mottaker_2019, flatten
+
+// OUTPUT: n mottaksmåneder -- lage fordeling? ridge plot innad i KOSTRA-grupper?
+tabulate kommune sosial_2023, flatten
+tabulate kommune sosial_2022, flatten
+tabulate kommune sosial_2021, flatten
+tabulate kommune sosial_2020, flatten
+tabulate kommune sosial_2019, flatten
+
+
+// OUTPUT: n mottaksmåneder, antall mottakere, n langtidsmottakere
+tabulate kommune langtidsmottaker_2023, flatten
+tabulate kommune langtidsmottaker_2022, flatten
+tabulate kommune langtidsmottaker_2021, flatten
+tabulate kommune langtidsmottaker_2020, flatten
+tabulate kommune langtidsmottaker_2019, flatten
+
+
+// Gjengangere
+// vi kan her definere gjengangere som mottakere i 2023 som også fikk sosialhjelp i minst ett av de forrige fire årene
+generate gjenganger_2022 = 0
+replace gjenganger_2022 = 1 if mottaker_2023 & mottaker_2022
+
+generate gjenganger_2021 = 1 if mottaker_2023 & mottaker_2021
+replace gjenganger_2021 = 0 if mottaker_2023 & sysmiss(mottaker_2021)
+
+generate gjenganger_2020 = 1 if mottaker_2023 & mottaker_2020
+replace gjenganger_2020 = 0 if mottaker_2023 & sysmiss(mottaker_2020)
+
+generate gjenganger_2019 = 1 if mottaker_2023 & mottaker_2019
+replace gjenganger_2019 = 0 if mottaker_2023 & sysmiss(mottaker_2019)
+
+summarize mottaker_2023  // 148 000 mottakere i 2023. dette er i nærheten av SSB-tallet 152600
+tabulate mottaker_2023 mottaker_2022, missing  
+tabulate gjenganger_2022 mottaker_2022, missing  // korrekt: mottakere begge år er gjenganger = 1
+tabulate gjenganger_2022 mottaker_2023, missing
+tabulate gjenganger_2022 gjenganger_2021, missing // 52k er gjengangere begge år (altså mottatt 3 år på rad)
+
+sankey mottaker_2023 gjenganger_2022 gjenganger_2021 gjenganger_2020 gjenganger_2019
+sankey mottaker_2023 mottaker_2022 mottaker_2021 mottaker_2020 mottaker_2019
+
+// gjenganger
+generate gjenganger_2023_2019 = 1 if gjenganger_2022 | gjenganger_2021 | gjenganger_2020 | gjenganger_2019
+tabulate gjenganger_2023_2019 mottaker_2023, missing
+
+// -------------- Logit: Sannsynlighet for å være mottaker --------------
+// variabler til logit: 
+keep if alder < 67
+
+// import sysselsettingsdata for å redusere populasjonen tidlig
+import ds/REGSYS_ARB_ARBMARK_STATUS 2023-11-16 as jobb2023
+destring jobb2023
+
+import ds/REGSYS_ARB_ARBMARK_STATUS 2022-11-16 as jobb2022
+import ds/REGSYS_ARB_ARBMARK_STATUS 2022-11-16 as jobb2020
+import ds/REGSYS_ARB_ARBMARK_STATUS 2022-11-16 as jobb2021
+import ds/REGSYS_ARB_ARBMARK_STATUS 2022-11-16 as jobb2019
+destring jobb2022
+destring jobb2021
+destring jobb2020
+destring jobb2019
+
+// import kjønn
+import ds/BEFOLKNING_KJOENN as kjonn 
+generate mann = kjonn == '1'
+generate innvandrer = innvkat == 1
+
+import ds/SIVSTANDFDT_SIVSTAND 2023-01-01 as sivstand
+generate gift = sivstand == '2'
+
+import ds/BEFOLKNING_BARN_I_REGSTAT_FAMNR 2023-01-01 as barn
+generate barn_flere = barn > 1
+generate barn_ett = barn == 1
+
+import ds/NUDB_BU 2023-01-01 as utdanning
+destring utdanning
+generate utdanning_høy = inrange(utdanning,700000,899999)
+
+import ds/NUDB_SOSBAK as sosbakgrunn
+tabulate sosbakgrunn
+generate høyutd_foreldre = sosbakgrunn == '1'
+piechart høyutd_foreldre
+
+// formue
+import ds/SKATT_BRUTTOFORMUE 2022-12-31 as formue
+generate formue_over100k = formue > 100000
+tabulate formue_over100k, missing
+replace formue = formue / 100000
+histogram formue if formue < 20 // under 2 mill
+// inntekt
+import ds/INNTEKT_WYRKINNT 2022-12-31 as inntekt_2023
+
+// arbeidssøkere fra NAV
+import ds/ARBSOEK2001FDT_HOVED 2023-01-01 as arbsøkerstatus_2023
+destring arbsøkerstatus_2023
+generate ledig = arbsøkerstatus_2023 == 1
+generate tiltak = arbsøkerstatus_2023 == 3
+generate yrkeshemmet = arbsøkerstatus_2023 == 5 | arbsøkerstatus_2023 >= 10
+generate arbsøk_andre = arbsøkerstatus_2023 == 2 | arbsøkerstatus_2023 == 4 | arbsøkerstatus_2023 == 7 
+// uføre
+import ds/UFOERP2011FDT_GRAD 2023-01-01 as uføregrad
+generate ufør = !sysmiss(uføregrad)
+
+// mer marginaliserte: hva med de som aldri var lønnstakere?
+create-dataset aordningen_2019
+import-event ds/ARBLONN_ARB_ARBMARK_STATUS 2019-01-16 to 2019-12-16 as lonnstaker
+// collapse: antall måneder med registrert arbeid per jobb
+collapse (count) lonnstaker -> lonnstaker_2019, by(JOBBID_1)
+// i forløpsdatasett må en først collapse til enhetstype JOBBID før en kan importere nye variabler
+import ds/ARBEIDSFORHOLD_PERSON as personid
+// collapse: maks måneder hver person er lønnstaker
+collapse (max) lonnstaker_2019, by(personid)
+tabulate lonnstaker_2019  // 3.1M lønnstakere
+merge lonnstaker_2019 into data
+
+// lønnstakere 2023
+create-dataset aordningen_2023
+import-event ds/ARBLONN_ARB_ARBMARK_STATUS 2023-01-16 to 2023-12-16 as lonnstaker
+// collapse: antall måneder med registrert arbeid per jobb
+collapse (count) lonnstaker -> lonnstaker_2023, by(JOBBID_1)
+// i forløpsdatasett må en først collapse til enhetstype JOBBID før en kan importere nye variabler
+import ds/ARBEIDSFORHOLD_PERSON as personid
+// collapse: maks måneder hver person er lønnstaker
+collapse (max) lonnstaker_2023, by(personid)
+tabulate lonnstaker_2023  // 3.1M lønnstakere
+merge lonnstaker_2023 into data
+
+// switch datasett og kryssjekk
+use data
+recode lonnstaker_2023 (1/12 = 1) 
+replace lonnstaker_2023 = 0 if sysmiss(lonnstaker_2023)
+recode lonnstaker_2019 (1/12 = 1)
+replace lonnstaker_2019 = 0 if sysmiss(lonnstaker_2019)
+tabulate lonnstaker_2023
+tabulate lonnstaker_2019
+
+// dette er nøyaktig samme syntaks som for å hente mottakere. 
+// kryssjekk mot annen offentlig statistikk? hvor mange var lønnstakere i minst 1 mnd i 2019?
+// TODO: estimater av arbeidsledighet i befolkningen 18-66 år er en nøtt. hvordan finne riktig nevner = hele arbeidstyrken?
+tabulate jobb2023, cellpct
+tabulate jobb2023 jobb2022, missing
+tabulate lonnstaker_2019 jobb2019, missing
+
+// vedvarende sysselsatte
+generate jobb2023_2022 = 0
+replace jobb2023_2022 = 1 if inrange(jobb2023, 1,2) & inrange(jobb2022, 1,2)
+tabulate jobb2023_2022 jobb2023, missing
+tabulate jobb2023_2022, missing
+
+barchart(sum) ledig tiltak yrkeshemmet arbsøk_andre ufør
+
+// reduser datasettet for logit: personer med D-nummer har ingen informasjon på andre variabler
+// sjekk missing: personer med D-nummer settes som innvandrer = 0
+tabulate innvandrer ident, missing
+tabulate ident regstat, missing
+keep if regstat == '1'
+
+
+// tilrettelegger variabler for regresjonsmodell
+generate verdensregion_afrika = verdensregion == 3
+generate verdensregion_asia = verdensregion == 4
+generate verdensregion_latam = verdensregion == 6
+tabulate verdensregion_afrika verdensregion_asia
+generate flyktning = innvandringsgrunn == 'FLU'
+tabulate flyktning
+generate botid_dummy = 0
+replace botid_dummy = 1 if botid < 3
+
+replace inntekt_2023 = inntekt_2023/100000
+generate lav_inntekt = inntekt_2023 < 5 // 500k i året
+summarize inntekt_2023
+tabulate lav_inntekt
+generate formue_over300k = formue > 300000
+generate formue_over200k = formue > 200000
+
+// logit: Sannsynlighet for å være mottaker i 2023 
+replace mottaker_2023 = 0 if sysmiss(mottaker_2023)
+tabulate mottaker_2023 // N = 141 000
+// drop if sysmiss(formue) // 120 000 droppet
+// drop if sysmiss(inntekt_2023) // 436 000 droppet
+// må kontrollere for arbeidsinnvandrere 
+generate arbeidsinnvandrer = innvandringsgrunn == 'ARB'
+generate ukrainer = landbakgrunn_utvalg == 1
+
+// tabulate lonnstaker_2023 jobb2023_2022 if mottaker_2023 == 1 // 1000 vedvarende sysselsatte er ikke registrert som lønnstakere. vi legger de til:
+replace lonnstaker_2023 = 1 if jobb2023_2022 == 1
+generate etterkommer = innvandringskategori == 'C'
+
+// test model: separasjon i dataene?
+logit mottaker_2023 innvandrer flyktning arbeidsinnvandrer inntekt_2023 lonnstaker_2023 formue alder mann gift barn, mfx(dydx) mfx_at(median)
+
+// følgende modell er uten innvandrer-variabel, og printer konstantledd
+logit mottaker_2023 flyktning arbeidsinnvandrer inntekt_2023 lonnstaker_2023 formue alder mann gift barn, mfx(dydx) mfx_at(median)
+
+// 
+
+// logit: Sannsynlighet for å være mottaker i 2023
+// enkel modell
+logit mottaker_2023 innvandrer etterkommer flyktning arbeidsinnvandrer inntekt_2023 lonnstaker_2023 formue alder mann gift barn, mfx(dydx) mfx_at(median)
+
+// full modell
+logit mottaker_2023 etterkommer flyktning arbeidsinnvandrer ukrainer verdensregion_afrika verdensregion_asia verdensregion_latam i.botid_kat inntekt_2023 lonnstaker_2023 formue utdanning_høy høyutd_foreldre alder mann gift barn ledig tiltak ufør yrkeshemmet arbsøk_andre, mfx(dydx) mfx_at(median)
+
+
+
+// logit: Sannsynlighet for å være langtidsmottaker i 2023
+generate langtidsmottaker_2023_kat = langtidsmottaker_2023 
+replace langtidsmottaker_2023_kat = 0 if sysmiss(langtidsmottaker_2023_kat)
+tabulate langtidsmottaker_2023_kat
+
+tabulate langtidsmottaker_2023_kat if sysmiss(innvandrer) == 0 & sysmiss(flyktning) == 0 & sysmiss(arbeidsinnvandrer) == 0 & sysmiss(inntekt_2023) == 0 & sysmiss(lonnstaker_2023) == 0 & sysmiss(formue) == 0 & sysmiss(alder) == 0 & sysmiss(mann) == 0 & sysmiss(gift) == 0 & sysmiss(barn) == 0
+
+// 56 700 langtidsmottakere. hvis vi dropper de med sysmiss formue og inntekt faller dette ti 19 000
+// simpel modell
+logit langtidsmottaker_2023_kat innvandrer flyktning arbeidsinnvandrer inntekt_2023 lonnstaker_2023 formue alder mann gift barn, mfx(dydx) mfx_at(median)
+
+logit langtidsmottaker_2023_kat flyktning arbeidsinnvandrer ukrainer verdensregion_afrika verdensregion_asia verdensregion_latam i.botid_kat inntekt_2023 lonnstaker_2023 formue utdanning_høy høyutd_foreldre alder mann gift barn ledig tiltak ufør yrkeshemmet arbsøk_andre, mfx(dydx) mfx_at(median)
+// N = 2.6M
+
+
+
+
+// logit: Sannsynlighet for å være gjenganger (mottakere i 2023 som har fått sosialhjelp mellom 2022-2019)
+replace gjenganger_2023_2019 = 0 if sysmiss(gjenganger_2023_2019) & mottaker_2023 == 1
+tabulate gjenganger_2023_2019 mottaker_2023 
+
+// simpel modell
+logit gjenganger_2023_2019 innvandrer etterkommer flyktning arbeidsinnvandrer inntekt_2023 lonnstaker_2023 formue alder mann gift barn, mfx(dydx) mfx_at(median)
+
+// gjenganger
+logit gjenganger_2023_2019 etterkommer flyktning arbeidsinnvandrer ukrainer verdensregion_afrika verdensregion_asia verdensregion_latam i.botid_kat inntekt_2023 lonnstaker_2023 formue utdanning_høy høyutd_foreldre alder mann gift barn ledig tiltak ufør yrkeshemmet arbsøk_andre, mfx(dydx) mfx_at(median)
+
+
+// OUTPUT: Kommunedata om gjengangere
+
+tabulate kommune gjenganger_2023_2019, flatten
+tabulate kommune gjenganger_2023_2019 if flyktning, flatten
+tabulate kommune gjenganger_2023_2019 if innvandrer, flatten
+
+
+
+// Stønad utbetalt: utgifter til sosialhjelp/mottaksbeløp
+// sosialhjelpsmottakerens mottatte bidrag/lån i kroner i løpet av rapporteringsåret
+import ds/SOSHJLPZFDT_BIDB 2023-12-31 as sh_bidrag_2023 
+import ds/SOSHJLPZFDT_LAAN 2023-12-31 as sh_laan_2023
+// import ds/SOSHJELPM_KOMMUNE 2023-12-31 as sh_utbetalingskommune // NB: ikke tilgjengelig for 2023.....
+
+tabulate kommune, summarize(sh_bidrag_2023) mean flatten // gjennomsnittlige utbetalinger per kommune. er dette langt unna stønadssatsene?
+tabulate kommune, summarize(sh_bidrag_2023) sum flatten // totalsum bidrag: 8.84 mrd (8.84×10^9)
+// det betyr at vi kanskje kan ignorere lån?
+tabulate kommune, summarize(sh_laan_2023) sum flatten // totalsum lån: 0.118 mrd (1.18×10^8)
+// sum bidrag + lån = 8,958 mrd. Fasit er 9,7 mrd NOK i 2023. Avviket skyldes at vi har avgrenset på alder og f-nr mm. 
+
+// generate soshjelp_sum = sh_laan_2023 + sh_bidrag_2023
+// funker det å summere? nei. 
+
+tabulate kommune, summarize(sh_bidrag_2023) sum flatten
+tabulate innvandrer, summarize(sh_bidrag_2023) sum flatten
+
+
+// TODO: output andel av bidragene som kan forklares av innvandrermottakere
+// trenger mottakervariabel som skiller mellom langtid/korttid 
+// og mottakervariabel som skiller mellom innvandrer/rest
+tabulate kommune innvandrer, summarize(sh_bidrag_2023) sum flatten
+
+
+
+// testing
+create-dataset kommunedata
+import ds/BEFOLKNING_KOMMNR_FORMELL 2024-01-01 as kommune
+import ds/SOSHJLPZFDT_BIDB 2023-12-31 as sh_bidrag_2023
+summarize sh_bidrag_2023
+
+collapse (sum) sh_bidrag_2023 -> sh_bidrag_kommune, by(kommune)
+merge sh_bidrag_kommune into data on kommune
+
+use data
+tabulate kommune sh_bidrag_kommune if kommune == '0301'
+
+
+
+
+// husholdningsinntekt/formue
+// create-dataset husholdning
+// import db/BEFOLKNING_REGSTAT_FAMNR 2023-01-01 as famnr
+// import db/INNTEKT_WYRKINNT 2023-01-01 as yrkesinnt
+// collapse (sum) yrkesinnt, by(famnr)
+// rename yrkesinnt familieinnt
+
+// // Kobler familieinntekt på persondatasettet (enhet = personer)
+// merge familieinnt into data on PERSONID_1

@@ -1,0 +1,7 @@
+title: "Migrasjonsstrømmer via Eurostats API"
+authors: ["Kristian Tvedt"]
+language: "R"
+data: ["administrative data"]
+themes: ["innvandring", "migrasjonsstrømmer"]
+methods: ["API", "data wrangling"]
+description: "Henter og vasker ulike data om asylankomster via Eurostats API. Data er brukt i GOVREIN-prosjektet. Les mer her: https://oda.oslomet.no/oda-xmlui/handle/11250/3112660"

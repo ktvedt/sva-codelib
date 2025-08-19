@@ -1,0 +1,7 @@
+title: "Spatial regression"
+authors: ["Kristian Tvedt"]
+language: "R"
+data: ["spatial data"]
+themes: ["spatial regression", "spatial autocorrelation"]
+methods: ["spatial error model", "spatial lag model"]
+description: "Identifiserer romlig autokorrelasjon i rådata og regresjonsresidualer. Spesifiserer og tester alternative modeller: SEM og SAR."

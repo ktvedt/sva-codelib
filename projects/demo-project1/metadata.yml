@@ -1,7 +1,0 @@
-title: "Demo-prosjekt"
-authors: ["ktvedt"]
-language: "R"
-data: ["test"]
-keywords: ["regression"]
-themes: ["example"]
-methods: ["OLS"]
