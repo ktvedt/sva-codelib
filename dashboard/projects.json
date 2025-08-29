@@ -1,8 +1,12 @@
 [
   {
     "title": "Alternative medier og islam",
-    "authors": "Siri Frisli",
-    "language": "R",
+    "authors": [
+      "Siri Frisli"
+    ],
+    "language": [
+      "R"
+    ],
     "data": [
       "text corpus"
     ],
@@ -103,9 +107,15 @@
   },
   {
     "title": "COVID-19-vaksiner: Misinformasjon og diskurser",
-    "authors": "Siri Frisli",
-    "language": "R",
-    "data": "text corpus",
+    "authors": [
+      "Siri Frisli"
+    ],
+    "language": [
+      "R"
+    ],
+    "data": [
+      "text corpus"
+    ],
     "methods": [
       "Topic modeling",
       "sentiment analysis",
@@ -161,9 +171,15 @@
   },
   {
     "title": "COVID-19 klassifikasjon av misinformasjon",
-    "authors": "Siri Frisli",
-    "language": "R",
-    "data": "text corpus",
+    "authors": [
+      "Siri Frisli"
+    ],
+    "language": [
+      "R"
+    ],
+    "data": [
+      "text corpus"
+    ],
     "methods": [
       "API",
       "data wrangling",
@@ -176,7 +192,7 @@
       "misinformasjon"
     ],
     "description": [
-      "Henter og klargj\u00f8r Twitter data, og trener en semi-supervised self-training klassifiaksjonsmodell for \u00e5 gjenkjenne misinformasjon. Les mer her: https://doi.org/10.1007/s42001-025-00367-x"
+      "Henter og klargj\u00f8r Twitter data, og trener en semx'hoi-supervised self-training klassifiaksjonsmodell for \u00e5 gjenkjenne misinformasjon. Les mer her: https://doi.org/10.1007/s42001-025-00367-x"
     ],
     "folder": "SSST-covid-classify-misinfo",
     "files": [

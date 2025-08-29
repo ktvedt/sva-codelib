@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: _site
+  # render:
+    # - "dashboard/**"
+    # - "!projects/**"
 
 website:
   title: ""
@@ -20,4 +23,3 @@ format:
 
 resources:
   - dashboard/projects.json
-

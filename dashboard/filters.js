@@ -7,22 +7,26 @@ let activeFilters = {
   search: ""
 };
 
+// use these wrappers to safeguard the contents of filtering fields
+const asText = v => Array.isArray(v) ? v.join(" ") : (v == null ? "" : String(v));
+const toArray = v => Array.isArray(v) ? v : (v == null ? [] : [v]);
+
 // Check if a project matches the current filters and search
 function matchesFilters(project) {
   const searchText = activeFilters.search.toLowerCase();
-  const title = (project.title || "").toLowerCase();
-  const description = (project.description || "").toLowerCase();
-  const authors = (project.authors || []).map(a => a.toLowerCase());
+  const title = asText(project.title).toLowerCase();
+  const description = asText(project.description).toLowerCase();
+  const authors = toArray(project.authors).map(a => a.toLowerCase());
 
   // Check if search text matches any relevant field
   const searchMatch =
     title.includes(searchText) ||
     description.includes(searchText) ||
     authors.some(a => a.includes(searchText)) ||
-    (project.themes || []).some(t => t.toLowerCase().includes(searchText)) ||
-    (project.methods || []).some(m => m.toLowerCase().includes(searchText)) ||
-    (project.data || []).some(d => d.toLowerCase().includes(searchText)) ||
-    (project.language || "").toLowerCase().includes(searchText);
+    toArray(project.themes).some(t => String(t).toLowerCase().includes(searchText)) ||
+    toArray(project.methods).some(m => String(m).toLowerCase().includes(searchText)) ||
+    toArray(project.data).some(d => String(d).toLowerCase().includes(searchText)) ||
+    asText(project.language).toLowerCase().includes(searchText);
 
   // Check if project matches all selected filters
   const filterFields = ["themes", "methods", "language", "data"];

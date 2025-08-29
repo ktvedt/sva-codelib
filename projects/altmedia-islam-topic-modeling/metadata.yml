@@ -1,6 +1,6 @@
 title: "Alternative medier og islam"
-authors: "Siri Frisli"
-language: "R"
+authors: ["Siri Frisli"]
+language: ["R"]
 data: ["text corpus"]
 methods: ["web scraping", "topic modeling"]
 themes: ["alternative medier", "tekstanalyse", "mixed-methods"]
