@@ -56,17 +56,16 @@
     ],
     "language": "microdata.no",
     "data": [
-      "registerdata",
-      "microdata.no"
+      "registerdata"
     ],
     "themes": [
       "sosialhjelp",
-      "innvandrere",
+      "innvandring",
       "sosialhjelpsmottakere"
     ],
     "methods": [
-      "Deskriptiv statistikk",
-      "Logit"
+      "deskriptiv statistikk",
+      "logit"
     ],
     "description": "Definerer sosialhjelpsmottakere, langtidsmottakere og gjengangere i Microdata.no. Inkluderer deskriptiv statistikk p\u00e5 kommuneniv\u00e5 og logistisk regresjon.",
     "folder": "microdata-sosialhjelp",
