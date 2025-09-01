@@ -55,11 +55,11 @@ function renderProjects(data) {
     card.className = "project-card";
     card.innerHTML = `
       <h3>${project.title}</h3>
-      <p><strong>Forfatter:</strong> ${(project.authors || []).join(", ")}</p>
-      <p><strong>Programmeringsspråk:</strong> ${project.language}</p>
-      <p><strong>Data:</strong> ${(project.data || []).join(", ")}</p>
-      <p><strong>Metode:</strong> ${(project.methods || []).join(", ")}</p>
-      <p><strong>Tema:</strong> ${(project.themes || []).join(", ")}</p>
+      <p><strong>Forfatter:</strong> ${toArray(project.authors).join(", ")}</p>
+      <p><strong>Programmeringsspråk:</strong> ${toArray(project.language)}</p>
+      <p><strong>Data:</strong> ${toArray(project.data).join(", ")}</p>
+      <p><strong>Metode:</strong> ${toArray(project.methods).join(", ")}</p>
+      <p><strong>Tema:</strong> ${toArray(project.themes).join(", ")}</p>
       <p>${project.description || ""}</p>
       <p><a href="https://github.com/ktvedt/sva-codelib/tree/main/projects/${project.folder}" target="_blank">Finn filer</a></p>
     `;
