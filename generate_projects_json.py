@@ -1,8 +1,7 @@
-import os
-import yaml
-import json
+import os, yaml, json
 import pandas as pd
 from collections import OrderedDict
+from openpyxl import load_workbook
 
 project_dir = "projects"
 output_file = "dashboard/projects.json"
@@ -31,7 +30,6 @@ for folder in os.listdir(project_dir):
         # read key/value rows where col A = key, cols B.. = values (no header)
         if ext == ".xlsx":
             # Build meta_dict directly from openpyxl rows (A=key, B..=values)
-            from openpyxl import load_workbook
             wb = load_workbook(src_path, read_only=True, data_only=True)
             ws = wb.active
             for r in ws.iter_rows(values_only=True):
