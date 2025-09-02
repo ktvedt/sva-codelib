@@ -20,8 +20,8 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install PyYAML
-        run: pip install pyyaml
+      - name: Install python dependencies
+        run: pip install pyyaml pandas
 
       - name: Generate projects.json
         run: python generate_projects_json.py
