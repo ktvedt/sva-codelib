@@ -1,5 +1,24 @@
 [
   {
+    "title": "Movers from the city in the first year of covid",
+    "authors": "Marianne T\u00f8nnessen",
+    "language": "microdata.no",
+    "data": "registerdata",
+    "methods": [
+      "deskriptiv statistikk",
+      "regresjonsanalyse"
+    ],
+    "themes": [
+      "innenlands flytting",
+      "yrker"
+    ],
+    "description": "Finner trender i utflyttingen fra Oslo f\u00f8r og under korona. Se publikasjon her: https://www.scup.com/doi/10.18261/issn.2703-8866-2021-02-03",
+    "folder": "microdata-covid-migration",
+    "files": [
+      "microdata-covid-migration/Movers from the city in the first year of Covid.txt"
+    ]
+  },
+  {
     "title": "Spatial regression",
     "authors": [
       "Kristian Tvedt"
@@ -25,15 +44,9 @@
   },
   {
     "title": "Alternative medier og islam",
-    "authors": [
-      "Siri Frisli"
-    ],
-    "language": [
-      "R"
-    ],
-    "data": [
-      "text corpus"
-    ],
+    "authors": "Siri Frisli",
+    "language": "R",
+    "data": "text corpus",
     "methods": [
       "web scraping",
       "topic modeling"
@@ -49,28 +62,21 @@
       "altmedia-islam-topic-modeling/README.md",
       "altmedia-islam-topic-modeling/Analyse.R",
       "altmedia-islam-topic-modeling/Bearbeiding.R",
-      "altmedia-islam-topic-modeling/SOS4090_metadata.xlsx",
       "altmedia-islam-topic-modeling/Innsamling.R"
     ]
   },
   {
-    "title": "COVID-19-vaksiner: Misinformasjon og diskurser",
-    "authors": [
-      "Siri Frisli"
-    ],
-    "language": [
-      "R"
-    ],
-    "data": [
-      "text corpus"
-    ],
+    "title": "COVID-19 vaksiner: Misinformasjon og diskurser",
+    "authors": "Siri Frisli",
+    "language": "R",
+    "data": "text corpus",
     "methods": [
-      "Topic modeling",
+      "topic modeling",
       "sentiment analysis",
       "mixed-methods"
     ],
     "themes": [
-      "Sosiale medier",
+      "sosiale medier",
       "tekstanalyse",
       "misinformasjon"
     ],
@@ -79,21 +85,14 @@
     "files": [
       "CADS-covid-topic-modeling/sentiments.R",
       "CADS-covid-topic-modeling/topics_30.txt",
-      "CADS-covid-topic-modeling/CADS_metadata.xlsx",
       "CADS-covid-topic-modeling/STM.R"
     ]
   },
   {
     "title": "COVID-19 klassifikasjon av misinformasjon",
-    "authors": [
-      "Siri Frisli"
-    ],
-    "language": [
-      "R"
-    ],
-    "data": [
-      "text corpus"
-    ],
+    "authors": "Siri Frisli",
+    "language": "R",
+    "data": "text corpus",
     "methods": [
       "API",
       "data wrangling",
@@ -101,17 +100,14 @@
       "tekstklassifisering"
     ],
     "themes": [
-      "Sosiale medier",
+      "sosiale medier",
       "tekstanalyse",
       "misinformasjon"
     ],
-    "description": [
-      "Henter og klargj\u00f8r Twitter data, og trener en semx'hoi-supervised self-training klassifiaksjonsmodell for \u00e5 gjenkjenne misinformasjon. Les mer her: https://doi.org/10.1007/s42001-025-00367-x"
-    ],
+    "description": "Henter og klargj\u00f8r Twitter data, og trener en semi-supervised self-training klassifiaksjonsmodell for \u00e5 gjenkjenne misinformasjon. Les mer her: https://doi.org/10.1007/s42001-025-00367-x",
     "folder": "SSST-covid-classify-misinfo",
     "files": [
       "SSST-covid-classify-misinfo/README.md",
-      "SSST-covid-classify-misinfo/SSST_metadata.xlsx",
       "SSST-covid-classify-misinfo/Scrapers",
       "SSST-covid-classify-misinfo/anms.xlsx",
       "SSST-covid-classify-misinfo/Classification",
@@ -189,7 +185,7 @@
     "themes": [
       "sosialhjelp",
       "innvandring",
-      "sosialhjelpsmottakere"
+      "kommuneanalyse"
     ],
     "methods": [
       "deskriptiv statistikk",

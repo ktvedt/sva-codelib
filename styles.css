@@ -30,6 +30,12 @@ font-family: 'Arial', sans-serif;
   font-size: 14px;
 }
 
+/* to reduce title font size, add an extra project card style: */
+.project-card h3 {
+  font-size: 1rem;
+  margin: 0.3em 0;
+}
+
 #projects-container {
   margin-top: 10px;
 }
