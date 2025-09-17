@@ -66,6 +66,32 @@
     ]
   },
   {
+    "title": "When Do Voters Punish Corrupt Politicians? Evidence from a Field and Survey Experiment",
+    "authors": [
+      "Yuri Kasahara",
+      "Miguel P. De Figueiredo",
+      "F. Daniel Hidalgo"
+    ],
+    "language": "R",
+    "data": "survey experiment",
+    "methods": [
+      "OLS"
+    ],
+    "themes": [
+      "corruption",
+      "party bias",
+      "polarization"
+    ],
+    "description": "Les mer: https://doi.org/10.1017/S0007123421000727",
+    "folder": "policies-make-politicians",
+    "files": [
+      "policies-make-politicians/log_file.txt",
+      "policies-make-politicians/codebook.pdf",
+      "policies-make-politicians/SPexperiment_data.RData",
+      "policies-make-politicians/replication_code.R"
+    ]
+  },
+  {
     "title": "COVID-19 vaksiner: Misinformasjon og diskurser",
     "authors": "Siri Frisli",
     "language": "R",
