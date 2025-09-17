@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "dashboard/faq.html",
+    "href": "dashboard/faq.html",
+    "title": "FAQ",
+    "section": "",
+    "text": "Hva er dette?\nDette er kodebiblioteket til SVA, en samling av prosjekter og kode for analyse og forskning.\nHvem kan bruke kodebiblioteket?\nAlle SVA-ansatte som er interessert i dataanalyse og forskning kan bruke ressursene.\nHvordan søker jeg etter prosjekter?\nBruk søkefeltet øverst på siden for å filtrere prosjekter etter nøkkelord, forfatter, eller tema.\nHvor finner jeg dokumentasjon for et prosjekt?\nKlikk på prosjektkortet for å se mer informasjon og lenker til filer.\n\n\n\nHvordan kan jeg bidra med et prosjekt? Du må ha en GitHub-konto tilknyttet SVA for å sende inn kode. Send inn en pull request på GitHub eller kontakt administratoren.\nKan jeg foreslå nye funksjoner?\nJa, forslag og tilbakemeldinger er velkomne! Bruk issues på GitHub eller kontakt administratoren.\n\nHar du andre spørsmål?\nTa kontakt via e-post eller GitHub."
+  },
+  {
+    "objectID": "dashboard/faq.html#generelt",
+    "href": "dashboard/faq.html#generelt",
+    "title": "FAQ",
+    "section": "",
+    "text": "Hva er dette?\nDette er kodebiblioteket til SVA, en samling av prosjekter og kode for analyse og forskning.\nHvem kan bruke kodebiblioteket?\nAlle SVA-ansatte som er interessert i dataanalyse og forskning kan bruke ressursene.\nHvordan søker jeg etter prosjekter?\nBruk søkefeltet øverst på siden for å filtrere prosjekter etter nøkkelord, forfatter, eller tema.\nHvor finner jeg dokumentasjon for et prosjekt?\nKlikk på prosjektkortet for å se mer informasjon og lenker til filer."
+  },
+  {
+    "objectID": "dashboard/faq.html#bruk-og-bidrag",
+    "href": "dashboard/faq.html#bruk-og-bidrag",
+    "title": "FAQ",
+    "section": "",
+    "text": "Hvordan kan jeg bidra med et prosjekt? Du må ha en GitHub-konto tilknyttet SVA for å sende inn kode. Send inn en pull request på GitHub eller kontakt administratoren.\nKan jeg foreslå nye funksjoner?\nJa, forslag og tilbakemeldinger er velkomne! Bruk issues på GitHub eller kontakt administratoren.\n\nHar du andre spørsmål?\nTa kontakt via e-post eller GitHub."
+  }
+]
