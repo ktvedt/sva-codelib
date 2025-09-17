@@ -51,10 +51,7 @@
   {
     "title": "Movers from the city in the first year of covid",
     "authors": "Marianne T\u00f8nnessen",
-    "language": [
-      "microdata.no",
-      "test"
-    ],
+    "language": "microdata.no",
     "data": "registerdata",
     "methods": [
       "deskriptiv statistikk",
@@ -67,8 +64,7 @@
     "description": "Finner trender i utflyttingen fra Oslo f\u00f8r og under korona. Se publikasjon her: https://www.scup.com/doi/10.18261/issn.2703-8866-2021-02-03",
     "folder": "microdata-covid-migration",
     "files": [
-      "microdata-covid-migration/Movers from the city in the first year of Covid.txt",
-      "microdata-covid-migration/~$metadata mt.xlsx"
+      "microdata-covid-migration/Movers from the city in the first year of Covid.txt"
     ]
   },
   {
@@ -176,6 +172,33 @@
       "FD-trygd/Sysselsatt.do",
       "FD-trygd/Uf\u00f8repensjon.do",
       "FD-trygd/KVP.do"
+    ]
+  },
+  {
+    "title": "When Do Voters Punish Corrupt Politicians? Evidence from a Field and Survey Experiment",
+    "authors": [
+      "Yuri Kasahara",
+      "Miguel P. De Figueiredo",
+      "F. Daniel Hidalgo"
+    ],
+    "language": "R",
+    "data": "survey experiment",
+    "methods": [
+      "OLS"
+    ],
+    "themes": [
+      "corruption",
+      "party bias",
+      "polarization"
+    ],
+    "description": "Les mer: https://doi.org/10.1017/S0007123421000727",
+    "folder": "policies-make-politicians",
+    "files": [
+      "policies-make-politicians/.DS_Store",
+      "policies-make-politicians/codebook.pdf",
+      "policies-make-politicians/SPexperiment_data.RData",
+      "policies-make-politicians/replication_code.R",
+      "policies-make-politicians/log_file.txt"
     ]
   },
   {

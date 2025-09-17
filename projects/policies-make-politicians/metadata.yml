@@ -1,0 +1,11 @@
+title: "When Do Voters Punish Corrupt Politicians? Evidence from a Field and Survey\
+  \ Experiment"
+authors:
+- "Yuri Kasahara"
+- "Miguel P. De Figueiredo"
+- "F. Daniel Hidalgo"
+language: "R"
+data: "survey experiment"
+methods: ["OLS"]
+themes: ["corruption", "party bias", "polarization"]
+description: "Les mer: https://doi.org/10.1017/S0007123421000727"

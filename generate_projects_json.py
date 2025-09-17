@@ -10,6 +10,13 @@ all_metadata = []
 created_count = 0
 missing_projects = []
 
+# read .gitignore and build pathspec to ignore when compiling projects
+import pathspec
+with open('.gitignore') as f:
+    gitignore = f.read()
+spec = pathspec.PathSpec.from_lines('gitwildmatch', gitignore.splitlines())
+
+# iterate project folders to build metadata
 for folder in os.listdir(project_dir):
     if folder.startswith("."):
         continue
@@ -163,6 +170,8 @@ for folder in os.listdir(project_dir):
         files = [
             f for f in os.listdir(folder_path)
             if f not in ("metadata.yml", src)
+            # drop gitignored files
+            and not spec.match_file(os.path.join(folder_path, f))
         ]
         metadata["files"] = [f"{folder}/{f}" for f in files]
         all_metadata.append(metadata)
