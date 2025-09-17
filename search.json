@@ -2,22 +2,29 @@
   {
     "objectID": "dashboard/faq.html",
     "href": "dashboard/faq.html",
-    "title": "FAQ",
+    "title": "Om kodebiblioteket",
     "section": "",
-    "text": "Hva er dette?\nDette er kodebiblioteket til SVA, en samling av prosjekter og kode for analyse og forskning.\nHvem kan bruke kodebiblioteket?\nAlle SVA-ansatte som er interessert i dataanalyse og forskning kan bruke ressursene.\nHvordan søker jeg etter prosjekter?\nBruk søkefeltet øverst på siden for å filtrere prosjekter etter nøkkelord, forfatter, eller tema.\nHvor finner jeg dokumentasjon for et prosjekt?\nKlikk på prosjektkortet for å se mer informasjon og lenker til filer.\n\n\n\nHvordan kan jeg bidra med et prosjekt? Du må ha en GitHub-konto tilknyttet SVA for å sende inn kode. Send inn en pull request på GitHub eller kontakt administratoren.\nKan jeg foreslå nye funksjoner?\nJa, forslag og tilbakemeldinger er velkomne! Bruk issues på GitHub eller kontakt administratoren.\n\nHar du andre spørsmål?\nTa kontakt via e-post eller GitHub."
+    "text": "Dette er et bibliotek med kode brukt av SVA-forskere i egne prosjekter. Her kan du finne kodesnutter som forskere ved SVA har delt, og som egner seg til gjenbruk i andre prosjekter."
   },
   {
-    "objectID": "dashboard/faq.html#generelt",
-    "href": "dashboard/faq.html#generelt",
-    "title": "FAQ",
-    "section": "",
-    "text": "Hva er dette?\nDette er kodebiblioteket til SVA, en samling av prosjekter og kode for analyse og forskning.\nHvem kan bruke kodebiblioteket?\nAlle SVA-ansatte som er interessert i dataanalyse og forskning kan bruke ressursene.\nHvordan søker jeg etter prosjekter?\nBruk søkefeltet øverst på siden for å filtrere prosjekter etter nøkkelord, forfatter, eller tema.\nHvor finner jeg dokumentasjon for et prosjekt?\nKlikk på prosjektkortet for å se mer informasjon og lenker til filer."
+    "objectID": "dashboard/faq.html#hvordan-finner-jeg-kode",
+    "href": "dashboard/faq.html#hvordan-finner-jeg-kode",
+    "title": "Om kodebiblioteket",
+    "section": "Hvordan finner jeg kode?",
+    "text": "Hvordan finner jeg kode?\nDu finner kode på to måter, og kan kombinere dem:\n\nSøk med fritekst\n\nSøkefunksjonen gir resultater som inneholder teksten du har skrevet inn.\n\nSøk med filter i ulike kategorier, som metode og tema\n\nKategoriene oppdateres når du filtrerer, slik at bare relevante filtre er synlig.\nDeaktiver filtre ved å trykke igjen.\n\n\nTrykk “Finn filer” for å se prosjektfilene."
   },
   {
-    "objectID": "dashboard/faq.html#bruk-og-bidrag",
-    "href": "dashboard/faq.html#bruk-og-bidrag",
-    "title": "FAQ",
-    "section": "",
-    "text": "Hvordan kan jeg bidra med et prosjekt? Du må ha en GitHub-konto tilknyttet SVA for å sende inn kode. Send inn en pull request på GitHub eller kontakt administratoren.\nKan jeg foreslå nye funksjoner?\nJa, forslag og tilbakemeldinger er velkomne! Bruk issues på GitHub eller kontakt administratoren.\n\nHar du andre spørsmål?\nTa kontakt via e-post eller GitHub."
+    "objectID": "dashboard/faq.html#hvordan-laster-jeg-ned-kode",
+    "href": "dashboard/faq.html#hvordan-laster-jeg-ned-kode",
+    "title": "Om kodebiblioteket",
+    "section": "Hvordan laster jeg ned kode?",
+    "text": "Hvordan laster jeg ned kode?\nKlikk på hver enkelt fil for å få opp innholdet. Velg “download raw file” (nedlastingsikon til høyre) for at filen skal lastes ned lokalt.\nEr det flere filer må de lastes ned hver for seg. Pass på at du har samme mappestruktur som filene har i GitHub.\nKreditering: Vi oppfordrer til å kreditere forfatterne når det gir mening, og du bruker store deler av andres kode."
+  },
+  {
+    "objectID": "dashboard/faq.html#hvordan-kan-jeg-bidra",
+    "href": "dashboard/faq.html#hvordan-kan-jeg-bidra",
+    "title": "Om kodebiblioteket",
+    "section": "Hvordan kan jeg bidra?",
+    "text": "Hvordan kan jeg bidra?\nDu må ha en GitHub-konto tilknyttet SVA for å sende inn kode. Send inn en pull request på GitHub eller kontakt administrator: navn + kodebibliotek@365.oslomet.no.\nKan jeg foreslå nye funksjoner?\nJa, vi setter pris på forslag og tilbakemeldinger! Bruk issues på GitHub eller kontakt administrator: navn + kodebibliotek@365.oslomet.no."
   }
 ]
