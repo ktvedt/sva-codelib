@@ -12,6 +12,8 @@ website:
     left:
       - href: dashboard/index.qmd
         text: Kodebibliotek
+      - href: dashboard/faq.qmd
+        text: FAQ
 
 format:
   html:

@@ -1,0 +1,32 @@
+---
+title: "FAQ"
+---
+
+# Om kodebiblioteket
+
+## Generelt
+
+**Hva er dette?**  
+Dette er kodebiblioteket til SVA, en samling av prosjekter og kode for analyse og forskning.
+
+**Hvem kan bruke kodebiblioteket?**  
+Alle SVA-ansatte som er interessert i dataanalyse og forskning kan bruke ressursene.
+
+**Hvordan søker jeg etter prosjekter?**  
+Bruk søkefeltet øverst på siden for å filtrere prosjekter etter nøkkelord, forfatter, eller tema.
+
+**Hvor finner jeg dokumentasjon for et prosjekt?**  
+Klikk på prosjektkortet for å se mer informasjon og lenker til filer.
+
+## Bruk og bidrag
+
+**Hvordan kan jeg bidra med et prosjekt?** 
+Du må ha en GitHub-konto tilknyttet SVA for å sende inn kode. Send inn en pull request på GitHub eller kontakt administratoren.
+
+**Kan jeg foreslå nye funksjoner?**  
+Ja, forslag og tilbakemeldinger er velkomne! Bruk issues på GitHub eller kontakt administratoren.
+
+---
+
+Har du andre spørsmål?  
+Ta kontakt via e-post eller GitHub.
