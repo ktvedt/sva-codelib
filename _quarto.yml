@@ -1,3 +1,5 @@
+lang: nb
+
 project:
   type: website
   output-dir: _site

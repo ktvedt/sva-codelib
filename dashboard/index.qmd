@@ -6,8 +6,12 @@ page-layout: full
 
 <link rel="stylesheet" href="../styles.css">
 
+<div class="explanation-text">
+  Her finner du kode og prosjekter delt av SVA-forskere. Bruk søkefeltet og filtrene for å finne det du trenger.
+</div>
+
 <div id="search-container">
-  <input id="search-box" type="text" placeholder="Søk..." />
+  <input id="search-box" type="text" placeholder="Søk her..." />
   <div id="filters"></div>
 </div>
 

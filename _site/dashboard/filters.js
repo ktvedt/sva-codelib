@@ -7,7 +7,9 @@ let activeFilters = {
   search: ""
 };
 
-// use these wrappers to safeguard the contents of filtering fields
+const FILTER_FIELDS = ["themes", "methods", "language", "data"];
+
+// Safeguard the contents of filtering fields
 const asText = v => Array.isArray(v) ? v.join(" ") : (v == null ? "" : String(v));
 const toArray = v => Array.isArray(v) ? v : (v == null ? [] : [v]);
 
@@ -29,11 +31,10 @@ function matchesFilters(project) {
     asText(project.language).toLowerCase().includes(searchText);
 
   // Check if project matches all selected filters
-  const filterFields = ["themes", "methods", "language", "data"];
-  return searchMatch && filterFields.every(field => {
+  return searchMatch && FILTER_FIELDS.every(field => {
     const selected = activeFilters[field];
-    const values = Array.isArray(project[field]) ? project[field] : [project[field]];
-    // All selected filter values for this field must be present in the project
+    if (!selected.size) return true;
+    const values = toArray(project[field]);
     return [...selected].every(f => values.includes(f));
   });
 }
@@ -47,10 +48,10 @@ function renderProjects(data) {
   // Update the counter
   const counter = document.getElementById("project-counter");
   if (counter) {
-    counter.textContent = `${filtered.length} prosjekt${filtered.length === 1 ? '' : 'er'}`;
+    counter.textContent = `${filtered.length} resultat${filtered.length === 1 ? '' : 'er'}`;
   }
 
-  filtered.forEach(project => {
+  for (const project of filtered) {
     const card = document.createElement("div");
     card.className = "project-card";
     card.innerHTML = `
@@ -64,12 +65,13 @@ function renderProjects(data) {
       <p><a href="https://github.com/ktvedt/sva-codelib/tree/main/projects/${project.folder}" target="_blank">Finn filer</a></p>
     `;
     container.appendChild(card);
-  });
+  }
 }
 
 // Render all filter groups (language, data, methods, themes)
 function updateFilters(data) {
-  document.getElementById("filters").innerHTML = "";
+  const filtersContainer = document.getElementById("filters");
+  filtersContainer.innerHTML = "";
   renderFilters(data, "language", "Språk");
   renderFilters(data, "data", "Data");
   renderFilters(data, "methods", "Metode");
@@ -82,39 +84,63 @@ function renderFilters(data, field, label) {
   const group = document.createElement("div");
   group.className = "filter-group";
   group.innerHTML = `<h4>${label}</h4>`;
-  const unique = new Set();
 
-  // Only show filter options that are available after applying other filters
-  const filterFields = ["themes", "methods", "language", "data"];
+  // Only show filter options available after applying other filters (excluding this group)
   const filteredData = data.filter(project => {
-    return filterFields.every(f => {
-      if (f === field) return true; // Don't filter on the current field
+    return FILTER_FIELDS.every(f => {
       const selected = activeFilters[f];
-      const values = Array.isArray(project[f]) ? project[f] : [project[f]];
+      if (!selected.size) return true;
+      const values = toArray(project[f]);
       return [...selected].every(val => values.includes(val));
     });
   });
 
-  // Collect unique values for this filter group
-  filteredData.forEach(p => {
-    const values = Array.isArray(p[field]) ? p[field] : [p[field]];
-    values.forEach(v => v && unique.add(v));
-  });
+  // Count occurrences of each filter value in the filtered data
+  const counts = {};
+  for (const p of filteredData) {
+    for (const v of toArray(p[field])) {
+      if (v) counts[v] = (counts[v] || 0) + 1;
+    }
+  }
 
-  // Render up to 5 filter buttons for this group
-  [...unique].sort().slice(0, 5).forEach(value => {
+  // Sort filter values by descending count, then alphabetically for ties
+  const allFilters = Object.keys(counts).sort((a, b) => 
+    counts[b] - counts[a] || a.localeCompare(b)
+  );
+  const maxPerLine = 4;
+
+  // Create a container for the filter buttons
+  const btnContainer = document.createElement("div");
+  btnContainer.className = "filter-btn-container";
+
+  // Render only the first N filter buttons
+  allFilters.slice(0, maxPerLine).forEach(value => {
     const btn = document.createElement("button");
     btn.className = "filter-btn";
     btn.textContent = value;
     if (activeFilters[field].has(value)) btn.classList.add("active");
     btn.onclick = () => {
-      // Toggle filter value on click
       activeFilters[field].has(value) ? activeFilters[field].delete(value) : activeFilters[field].add(value);
       updateFilters(data);
       renderProjects(data);
     };
-    group.appendChild(btn);
+    btnContainer.appendChild(btn);
   });
+  group.appendChild(btnContainer);
+
+  // Only show "og X flere" if there are more available filters than shown and not currently selected
+  const hiddenFilters = allFilters.slice(maxPerLine);
+  const hiddenUnselected = hiddenFilters.filter(
+    value => !activeFilters[field].has(value)
+  );
+  const more = document.createElement("div");
+  more.className = "filter-text-more";
+  if (hiddenUnselected.length > 0) {
+    more.textContent = `og ${hiddenUnselected.length} flere filtre`;
+  } else {
+    more.innerHTML = "&nbsp;"; // Non-breaking space to reserve height
+  }
+  group.appendChild(more);
 
   filtersContainer.appendChild(group);
 }
@@ -125,7 +151,6 @@ fetch("projects.json")
   .then(data => {
     renderProjects(data);
     updateFilters(data);
-    // Update search filter on input
     document.getElementById("search-box").addEventListener("input", e => {
       activeFilters.search = e.target.value;
       renderProjects(data);
