@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "dashboard/index.html",
+    "href": "dashboard/index.html",
+    "title": "SVA kodebibliotek",
+    "section": "",
+    "text": "Her finner du kode og prosjekter delt av SVA-forskere. Bruk søkefeltet og filtrene for å finne det du trenger."
+  },
+  {
     "objectID": "dashboard/faq.html",
     "href": "dashboard/faq.html",
     "title": "Om kodebiblioteket",
