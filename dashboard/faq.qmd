@@ -1,32 +1,35 @@
 ---
-title: "FAQ"
+title: "Om kodebiblioteket"
 ---
 
-# Om kodebiblioteket
+Dette er et bibliotek med kode brukt av SVA-forskere i egne prosjekter. Her kan du finne kodesnutter som forskere ved SVA har delt, og som egner seg til gjenbruk i andre prosjekter. 
 
-## Generelt
+## Hvordan finner jeg kode?
 
-**Hva er dette?**  
-Dette er kodebiblioteket til SVA, en samling av prosjekter og kode for analyse og forskning.
+Du finner kode på to måter, og kan kombinere dem:
 
-**Hvem kan bruke kodebiblioteket?**  
-Alle SVA-ansatte som er interessert i dataanalyse og forskning kan bruke ressursene.
+* Søk med fritekst
+    + Søkefunksjonen gir resultater som inneholder teksten du har skrevet inn. 
+* Søk med filter i ulike kategorier, som metode og tema
+    + Kategoriene oppdateres når du filtrerer, slik at bare relevante filtre er synlig. 
+    + Deaktiver filtre ved å trykke igjen.
 
-**Hvordan søker jeg etter prosjekter?**  
-Bruk søkefeltet øverst på siden for å filtrere prosjekter etter nøkkelord, forfatter, eller tema.
+Trykk "Finn filer" for å se prosjektfilene.
 
-**Hvor finner jeg dokumentasjon for et prosjekt?**  
-Klikk på prosjektkortet for å se mer informasjon og lenker til filer.
+## Hvordan laster jeg ned kode?
 
-## Bruk og bidrag
+Klikk på hver enkelt fil for å få opp innholdet. Velg "download raw file" (nedlastingsikon til høyre) for at filen skal lastes ned lokalt. 
 
-**Hvordan kan jeg bidra med et prosjekt?** 
-Du må ha en GitHub-konto tilknyttet SVA for å sende inn kode. Send inn en pull request på GitHub eller kontakt administratoren.
+Er det flere filer må de lastes ned hver for seg. Pass på at du har samme mappestruktur som filene har i GitHub.
 
-**Kan jeg foreslå nye funksjoner?**  
-Ja, forslag og tilbakemeldinger er velkomne! Bruk issues på GitHub eller kontakt administratoren.
+**Kreditering**: Vi oppfordrer til å kreditere forfatterne når det gir mening, og du bruker store deler av andres kode.
 
 ---
 
-Har du andre spørsmål?  
-Ta kontakt via e-post eller GitHub.
+## Hvordan kan jeg bidra?
+
+Du må ha en GitHub-konto tilknyttet SVA for å sende inn kode. Send inn en pull request på GitHub eller kontakt administrator: [navn + kodebibliotek@365.oslomet.no](mailto:kodebibliotek@365.oslomet.no).
+
+**Kan jeg foreslå nye funksjoner?**
+
+Ja, vi setter pris på forslag og tilbakemeldinger! Bruk issues på GitHub eller kontakt administrator: [navn + kodebibliotek@365.oslomet.no](mailto:kodebibliotek@365.oslomet.no).
