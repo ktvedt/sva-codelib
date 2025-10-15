@@ -1,31 +1,24 @@
 [
   {
-    "objectID": "dashboard/index.html",
-    "href": "dashboard/index.html",
-    "title": "SVA kodebibliotek",
-    "section": "",
-    "text": "Her finner du kode og prosjekter delt av SVA-forskere. Bruk søkefeltet og filtrene for å finne det du trenger."
-  },
-  {
     "objectID": "dashboard/faq.html",
     "href": "dashboard/faq.html",
     "title": "Om kodebiblioteket",
     "section": "",
-    "text": "Dette er et bibliotek med kode brukt av SVA-forskere i egne prosjekter. Her kan du finne kodesnutter som forskere ved SVA har delt, og som egner seg til gjenbruk i andre prosjekter."
+    "text": "Dette er et bibliotek med kode skrevet av forskere ved SVA: Senter for velferds- og arbeidslivsforskning på OsloMet. Her kan du finne kodesnutter som forskere ved SVA har delt, og som egner seg til gjenbruk i andre prosjekter."
   },
   {
     "objectID": "dashboard/faq.html#hvordan-finner-jeg-kode",
     "href": "dashboard/faq.html#hvordan-finner-jeg-kode",
     "title": "Om kodebiblioteket",
     "section": "Hvordan finner jeg kode?",
-    "text": "Hvordan finner jeg kode?\nDu finner kode på to måter, og kan kombinere dem:\n\nSøk med fritekst\n\nSøkefunksjonen gir resultater som inneholder teksten du har skrevet inn.\n\nSøk med filter i ulike kategorier, som metode og tema\n\nKategoriene oppdateres når du filtrerer, slik at bare relevante filtre er synlig.\nDeaktiver filtre ved å trykke igjen.\n\n\nTrykk “Finn filer” for å se prosjektfilene."
+    "text": "Hvordan finner jeg kode?\nDu finner kode på to måter:\n\nSøk med fritekst\n\nSøkefunksjonen gir resultater som inneholder teksten du har skrevet inn.\n\nSøk med filter i ulike kategorier, som metode og tema\n\nKategoriene oppdateres når du filtrerer, slik at bare relevante filtre er synlig.\nDeaktiver filtre ved å trykke igjen.\n\n\nDu kan kombinere filter- og fritekstsøk. Trykk “Finn filer” for å se prosjektfilene på GitHub."
   },
   {
     "objectID": "dashboard/faq.html#hvordan-laster-jeg-ned-kode",
     "href": "dashboard/faq.html#hvordan-laster-jeg-ned-kode",
     "title": "Om kodebiblioteket",
     "section": "Hvordan laster jeg ned kode?",
-    "text": "Hvordan laster jeg ned kode?\nKlikk på hver enkelt fil for å få opp innholdet. Velg “download raw file” (nedlastingsikon til høyre) for at filen skal lastes ned lokalt.\nEr det flere filer må de lastes ned hver for seg. Pass på at du har samme mappestruktur som filene har i GitHub.\nKreditering: Vi oppfordrer til å kreditere forfatterne når det gir mening, og du bruker store deler av andres kode."
+    "text": "Hvordan laster jeg ned kode?\nKlikk på en kodefil på GitHub og velg “download raw file” (nedlastingsikon til høyre) for å laste ned filen lokalt.\nEr det flere filer må de lastes ned hver for seg. Pass på at du har samme mappestruktur som filene har i GitHub.\nKreditering: Vi oppfordrer til å kreditere forfatterne når det gir mening, og du bruker store deler av andres kode."
   },
   {
     "objectID": "dashboard/faq.html#hvordan-kan-jeg-bidra",
@@ -33,5 +26,12 @@
     "title": "Om kodebiblioteket",
     "section": "Hvordan kan jeg bidra?",
     "text": "Hvordan kan jeg bidra?\nDu må ha en GitHub-konto tilknyttet SVA for å sende inn kode. Send inn en pull request på GitHub eller kontakt administrator: navn + kodebibliotek@365.oslomet.no.\nKan jeg foreslå nye funksjoner?\nJa, vi setter pris på forslag og tilbakemeldinger! Bruk issues på GitHub eller kontakt administrator: navn + kodebibliotek@365.oslomet.no."
+  },
+  {
+    "objectID": "dashboard/index.html",
+    "href": "dashboard/index.html",
+    "title": "SVA kodebibliotek",
+    "section": "",
+    "text": "Her finner du kode delt av SVA-forskere. Bruk søkefeltet og filtrene for å lete i biblioteket.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nKreditering: Vi oppfordrer til å kreditere forfatterne når du bruker store deler av andres kode.\n\nFinner du feil? Opprett en sak på GitHub Issues eller ta kontakt med administrator: kodebibliotek@365.oslomet.no\n\n\nSe FAQ for mer informasjon."
   }
 ]
