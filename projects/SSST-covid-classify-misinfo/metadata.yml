@@ -1,8 +1,8 @@
 title: "COVID-19 klassifikasjon av misinformasjon"
 authors: "Siri Frisli"
 language: "R"
-data: ["text corpus", "Twitter API"]
+data: "text corpus"
 methods: ["API", "data wrangling", "maskinlæring", "tekstklassifisering"]
-themes: ["sosiale medier", "covid", "misinformasjon"]
-description: "Henter og klargjør Twitter-data, og trener en semi-supervised self-training\
-  \ klassifikasjonsmodell for å gjenkjenne misinformasjon. Les mer her: https://doi.org/10.1007/s42001-025-00367-x"
+themes: ["sosiale medier", "tekstanalyse", "misinformasjon"]
+description: "Henter og klargjør Twitter data, og trener en semi-supervised self-training\
+  \ klassifiaksjonsmodell for å gjenkjenne misinformasjon. Les mer her: https://doi.org/10.1007/s42001-025-00367-x"
