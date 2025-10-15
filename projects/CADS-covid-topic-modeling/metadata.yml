@@ -3,6 +3,6 @@ authors: "Siri Frisli"
 language: "R"
 data: "text corpus"
 methods: ["topic modeling", "sentiment analysis", "mixed-methods"]
-themes: ["sosiale medier", "tekstanalyse", "misinformasjon"]
+themes: ["sosiale medier", "covid", "misinformasjon"]
 description: "Undersøker diskursive trender innen vaksinemisinformasjon fra COVID-19\
   \ pandemien. Les mer her: https://doi.org/10.1177/20563051251347614"
