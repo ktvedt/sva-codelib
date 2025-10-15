@@ -2,18 +2,18 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
-/* Explanation/info text box (main page) */
+/* Intro/info-tekst (index page) */
 .explanation-text {
   background: white;
   border-radius: 1px;
   padding: 0.1em 0.1em;
   margin-bottom: 0.1em;
   font-size: 0.9em;
-  color: #1a2a4f;
+  color: black;
   max-width: 800px;
 }
 
-/* Filter buttons (in filter boxes) */
+/* Filterknapper (inni filterbokser) */
 .filter-btn {
   margin: 4px;
   font-size: 14px;
@@ -29,7 +29,7 @@ body {
   border-color: #007bff;
 }
 
-/* Project cards (search results) */
+/* Resultater (prosjektkort) */
 .project-card {
   margin-top: 0;
   margin-bottom: 0;
@@ -45,7 +45,7 @@ body {
   margin: 0.3em 0;
 }
 
-/* Projects grid container */
+/* Grid med prosjekter/resultater (3 horisontalt) */
 #projects-container {
   margin-top: 10px;
 }
@@ -55,7 +55,7 @@ body {
   gap: 16px;
 }
 
-/* Search and filter containers (top controls) */
+/* Containere for søk og filtrering */
 #search-container,
 #filters {
   top: 0;
@@ -71,7 +71,7 @@ body {
   gap: 10px 10px;
 }
 
-/* Filter group boxes */
+/* Bokser for filtergrupper */
 .filter-group {
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -83,7 +83,7 @@ body {
   font-size: 14px;
 }
 
-/* Project counter (above results) */
+/* Resultat-teller */
 #project-counter {
   top: 0;
   margin-bottom: 1em;
@@ -97,8 +97,34 @@ body {
   font-size: 1em;
   box-shadow: 0 2px 8px rgba(53,120,229,0.08);
 }
+/* Blinkende resultat-teller (animasjon når den oppdateres) */
+.counter-pulse {
+  animation: counterPulse 1.2s ease-out;
+}
+@keyframes counterPulse {
+  0% {
+    background: #fafafa;
+    box-shadow: 0 2px 8px rgba(53,120,229,0.08);
+    transform: scale(1);
+  }
+  30% {
+    background: #dce7ff;
+    box-shadow: 0 6px 18px rgba(53,120,229,0.28);
+    transform: scale(1.03);
+  }
+  60% {
+    background: #ecf3ff;
+    box-shadow: 0 4px 14px rgba(53,120,229,0.2);
+    transform: scale(1.015);
+  }
+  100% {
+    background: #fafafa;
+    box-shadow: 0 2px 8px rgba(53,120,229,0.08);
+    transform: scale(1);
+  }
+}
 
-/* Search box (input field) */
+/* Fritekst-søk (inputfelt) */
 #search-box {
   border: 2px solid #3578e5;
   border-radius: 8px;
@@ -112,7 +138,7 @@ body {
   border-color: #1a2a4f;
 }
 
-/* Filter button container */
+/* Filterknapp: boks/container */
 .filter-btn-container {
   display: flex;
   flex-wrap: wrap;
@@ -120,19 +146,113 @@ body {
   margin-bottom: 2px;
 }
 
-/* "og x flere" filter summary text - compact, italic, less prominent */
+/* Formatering: "og x flere filtre": interaktiv knapp */
 .filter-text-more {
-  color: grey;
-  font-weight: normal;
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: #1a2a4f;
+  font-weight: 500;
   font-size: 0.8em !important;
   font-style: italic;
   margin-left: 0;
-  margin-top: 2px;
-  opacity: 0.7;
+  margin-top: 6px;
+  opacity: 0.9;
   letter-spacing: 0.01em;
-  cursor: default;
+  cursor: pointer;
   vertical-align: middle;
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, opacity 0.2s;
+}
+
+/* Hover- og fokusstil for «flere filtre»-knappen */
+.filter-text-more:hover,
+.filter-text-more:focus {
+  background: #e9f1ff;
+  border-color: #3578e5;
+  color: #1a2a4f;
+  opacity: 1;
+}
+/* Fokusmarkering ved tastaturnavigasjon */
+.filter-text-more:focus-visible {
+  outline: 2px solid #3578e5;
+  outline-offset: 2px;
+}
+/* Placeholder når det ikke finnes flere filtre */
+.filter-text-more.placeholder {
+  background: transparent;
+  border: none;
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
+}
+/* Fjerner fokus for placeholderen */
+.filter-text-more.placeholder:focus {
+  outline: none;
+}
+
+/* Popup-boks som viser "x flere filtre" */
+.filter-popup {
+  position: fixed;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  max-width: 320px;
+  min-width: 220px;
+  z-index: 1000;
+}
+/* Overskrift i popup */
+.filter-popup-title {
+  font-size: 0.85em;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 8px;
+  color: black;
+}
+/* Knappeoppsett i popup */
+.filter-popup-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+/* Fjern marginer (luft) rundt filtre i popup */
+.filter-popup .filter-btn {
+  margin: 0;
+}
+
+/* Kontaktseksjon nederst på forsiden */
+.contact-footer {
+  margin-top: 2rem;
+  padding: 1.5rem 0 2rem 0;
+  border-top: 4px solid #fed502;
+  background: transparent;
+  line-height: 1.5;
+  text-align: center;
+}
+.contact-footer h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  color: #1a2a4f;
+}
+.contact-footer a {
+  color: #1a2a4f;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(53, 120, 229, 0.4);
+}
+.contact-footer a:hover,
+.contact-footer a:focus {
+  color: #3578e5;
+  border-bottom-color: rgba(53, 120, 229, 0.8);
+}
+.contact-footer p {
+  margin: 0.5rem 0;
 }
 
 html {

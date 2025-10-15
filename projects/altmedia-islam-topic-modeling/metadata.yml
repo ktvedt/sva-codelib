@@ -3,7 +3,7 @@ authors: "Siri Frisli"
 language: "R"
 data: "text corpus"
 methods: ["web scraping", "topic modeling"]
-themes: ["alternative medier", "tekstanalyse", "mixed-methods"]
+themes: ["alternative medier", "ytre høyre"]
 description: "Undersøker diskursive trender og endringer i måten alternative medier\
   \ tilknyttet det norske ytre høyre har representert islam årene 2003-2021. Les mer\
   \ her: http://urn.nb.no/URN:NBN:no-98456"

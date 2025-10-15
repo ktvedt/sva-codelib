@@ -2,11 +2,11 @@
 title: "Om kodebiblioteket"
 ---
 
-Dette er et bibliotek med kode brukt av SVA-forskere i egne prosjekter. Her kan du finne kodesnutter som forskere ved SVA har delt, og som egner seg til gjenbruk i andre prosjekter. 
+Dette er et bibliotek med kode skrevet av forskere ved SVA: Senter for velferds- og arbeidslivsforskning på OsloMet. Her kan du finne kodesnutter som forskere ved SVA har delt, og som egner seg til gjenbruk i andre prosjekter. 
 
 ## Hvordan finner jeg kode?
 
-Du finner kode på to måter, og kan kombinere dem:
+Du finner kode på to måter:
 
 * Søk med fritekst
     + Søkefunksjonen gir resultater som inneholder teksten du har skrevet inn. 
@@ -14,11 +14,11 @@ Du finner kode på to måter, og kan kombinere dem:
     + Kategoriene oppdateres når du filtrerer, slik at bare relevante filtre er synlig. 
     + Deaktiver filtre ved å trykke igjen.
 
-Trykk "Finn filer" for å se prosjektfilene.
+Du kan kombinere filter- og fritekstsøk. Trykk "Finn filer" for å se prosjektfilene på GitHub.
 
 ## Hvordan laster jeg ned kode?
 
-Klikk på hver enkelt fil for å få opp innholdet. Velg "download raw file" (nedlastingsikon til høyre) for at filen skal lastes ned lokalt. 
+Klikk på en kodefil på GitHub og velg "download raw file" (nedlastingsikon til høyre) for å laste ned filen lokalt. 
 
 Er det flere filer må de lastes ned hver for seg. Pass på at du har samme mappestruktur som filene har i GitHub.
 

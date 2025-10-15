@@ -9,9 +9,121 @@ let activeFilters = {
 
 const FILTER_FIELDS = ["themes", "methods", "language", "data"];
 
+const filterSelectionOrder = {
+  themes: [],
+  methods: [],
+  language: [],
+  data: []
+};
+
+let currentFilterPopup = null;
+let currentFilterPopupAnchor = null;
+let outsideClickHandler = null;
+let escapeKeyHandler = null;
+let lastRenderedCount = null;
+
 // Safeguard the contents of filtering fields
 const asText = v => Array.isArray(v) ? v.join(" ") : (v == null ? "" : String(v));
 const toArray = v => Array.isArray(v) ? v : (v == null ? [] : [v]);
+
+function closeFilterPopup() {
+  if (!currentFilterPopup) return;
+  currentFilterPopup.remove();
+  currentFilterPopup = null;
+  currentFilterPopupAnchor = null;
+  if (outsideClickHandler) {
+    document.removeEventListener("click", outsideClickHandler, true);
+    outsideClickHandler = null;
+  }
+  if (escapeKeyHandler) {
+    document.removeEventListener("keydown", escapeKeyHandler);
+    escapeKeyHandler = null;
+  }
+}
+
+function toggleFilterPopup(anchor, field, label, filters, data) {
+  if (currentFilterPopup && currentFilterPopupAnchor === anchor) {
+    closeFilterPopup();
+    return;
+  }
+  openFilterPopup(anchor, field, label, filters, data);
+}
+
+function openFilterPopup(anchor, field, label, filters, data) {
+  closeFilterPopup();
+
+  const popup = document.createElement("div");
+  popup.className = "filter-popup";
+
+  const title = document.createElement("div");
+  title.className = "filter-popup-title";
+  title.textContent = `${label}: flere filtre`;
+  popup.appendChild(title);
+
+  const btnContainer = document.createElement("div");
+  btnContainer.className = "filter-popup-btns";
+
+  filters.forEach(value => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "filter-btn";
+    btn.textContent = value;
+    if (activeFilters[field].has(value)) btn.classList.add("active");
+    btn.onclick = ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      if (activeFilters[field].has(value)) {
+        activeFilters[field].delete(value);
+        filterSelectionOrder[field] = filterSelectionOrder[field].filter(v => v !== value);
+      } else {
+        activeFilters[field].add(value);
+        filterSelectionOrder[field] = filterSelectionOrder[field].filter(v => v !== value);
+        filterSelectionOrder[field].push(value);
+      }
+      closeFilterPopup();
+      updateFilters(data);
+      renderProjects(data);
+    };
+    btnContainer.appendChild(btn);
+  });
+
+  popup.appendChild(btnContainer);
+  document.body.appendChild(popup);
+  popup.addEventListener("click", ev => ev.stopPropagation());
+
+  // Position popup near anchor without shifting layout
+  const rect = anchor.getBoundingClientRect();
+  const popupRect = popup.getBoundingClientRect();
+  let top = rect.bottom + 8;
+  if (top + popupRect.height > window.innerHeight - 16) {
+    top = Math.max(16, rect.top - popupRect.height - 8);
+  }
+  let left = rect.left;
+  if (left + popupRect.width > window.innerWidth - 16) {
+    left = Math.max(16, window.innerWidth - popupRect.width - 16);
+  }
+
+  popup.style.top = `${top}px`;
+  popup.style.left = `${left}px`;
+
+  currentFilterPopup = popup;
+  currentFilterPopupAnchor = anchor;
+
+  outsideClickHandler = event => {
+    if (!currentFilterPopup) return;
+    if (currentFilterPopup.contains(event.target)) return;
+    if (event.target === currentFilterPopupAnchor) return;
+    closeFilterPopup();
+  };
+  document.addEventListener("click", outsideClickHandler, true);
+
+  escapeKeyHandler = event => {
+    if (event.key === "Escape") {
+      closeFilterPopup();
+    }
+  };
+  document.addEventListener("keydown", escapeKeyHandler);
+}
 
 // Check if a project matches the current filters and search
 function matchesFilters(project) {
@@ -49,6 +161,14 @@ function renderProjects(data) {
   const counter = document.getElementById("project-counter");
   if (counter) {
     counter.textContent = `${filtered.length} resultat${filtered.length === 1 ? '' : 'er'}`;
+    if (lastRenderedCount !== filtered.length) {
+      counter.classList.remove("counter-pulse");
+      // Force reflow to restart animation on consecutive updates
+      // eslint-disable-next-line no-unused-expressions
+      counter.offsetWidth;
+      counter.classList.add("counter-pulse");
+      lastRenderedCount = filtered.length;
+    }
   }
 
   for (const project of filtered) {
@@ -70,6 +190,7 @@ function renderProjects(data) {
 
 // Render all filter groups (language, data, methods, themes)
 function updateFilters(data) {
+  closeFilterPopup();
   const filtersContainer = document.getElementById("filters");
   filtersContainer.innerHTML = "";
   renderFilters(data, "language", "Språk");
@@ -104,23 +225,52 @@ function renderFilters(data, field, label) {
   }
 
   // Sort filter values by descending count, then alphabetically for ties
-  const allFilters = Object.keys(counts).sort((a, b) => 
+  const allFilters = Object.keys(counts).sort((a, b) =>
     counts[b] - counts[a] || a.localeCompare(b)
   );
+  const selectedOrdered = filterSelectionOrder[field]
+    .filter(value => activeFilters[field].has(value));
+  filterSelectionOrder[field] = selectedOrdered.slice();
+  const selectedInCounts = selectedOrdered.filter(value => counts[value]);
+  const selectedNotInCounts = selectedOrdered.filter(value => !counts[value]);
+  const orderedSelected = [...selectedInCounts, ...selectedNotInCounts];
+  const remainingFilters = allFilters.filter(value => !activeFilters[field].has(value));
   const maxPerLine = 4;
+  const visibleLimit = Math.max(maxPerLine, orderedSelected.length);
+  const visibleValues = [];
+  const seen = new Set();
+
+  for (const value of orderedSelected) {
+    if (seen.has(value)) continue;
+    visibleValues.push(value);
+    seen.add(value);
+  }
+  for (const value of remainingFilters) {
+    if (visibleValues.length >= visibleLimit) break;
+    if (seen.has(value)) continue;
+    visibleValues.push(value);
+    seen.add(value);
+  }
 
   // Create a container for the filter buttons
   const btnContainer = document.createElement("div");
   btnContainer.className = "filter-btn-container";
 
   // Render only the first N filter buttons
-  allFilters.slice(0, maxPerLine).forEach(value => {
+  visibleValues.forEach(value => {
     const btn = document.createElement("button");
     btn.className = "filter-btn";
     btn.textContent = value;
     if (activeFilters[field].has(value)) btn.classList.add("active");
     btn.onclick = () => {
-      activeFilters[field].has(value) ? activeFilters[field].delete(value) : activeFilters[field].add(value);
+      if (activeFilters[field].has(value)) {
+        activeFilters[field].delete(value);
+        filterSelectionOrder[field] = filterSelectionOrder[field].filter(v => v !== value);
+      } else {
+        activeFilters[field].add(value);
+        filterSelectionOrder[field] = filterSelectionOrder[field].filter(v => v !== value);
+        filterSelectionOrder[field].push(value);
+      }
       updateFilters(data);
       renderProjects(data);
     };
@@ -129,16 +279,22 @@ function renderFilters(data, field, label) {
   group.appendChild(btnContainer);
 
   // Only show "og X flere" if there are more available filters than shown and not currently selected
-  const hiddenFilters = allFilters.slice(maxPerLine);
-  const hiddenUnselected = hiddenFilters.filter(
-    value => !activeFilters[field].has(value)
-  );
-  const more = document.createElement("div");
-  more.className = "filter-text-more";
-  if (hiddenUnselected.length > 0) {
-    more.textContent = `og ${hiddenUnselected.length} flere filtre`;
+  const hiddenFilters = remainingFilters.filter(value => !visibleValues.includes(value));
+  let more;
+  if (hiddenFilters.length) {
+    more = document.createElement("button");
+    more.type = "button";
+    more.className = "filter-text-more";
+    more.textContent = `og ${hiddenFilters.length} flere filtre`;
+    more.onclick = ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      toggleFilterPopup(more, field, label, hiddenFilters, data);
+    };
   } else {
-    more.innerHTML = "&nbsp;"; // Non-breaking space to reserve height
+    more = document.createElement("div");
+    more.className = "filter-text-more placeholder";
+    more.innerHTML = "&nbsp;";
   }
   group.appendChild(more);
 
